@@ -1,6 +1,5 @@
 import itertools
 
-
 class Node:
 
     def __init__(self, parent, state, cost, f, action):
@@ -23,4 +22,7 @@ class Node:
 
     def getId(self):
         return self.id
+
+    def getState(self):
+        return self.state
 

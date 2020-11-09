@@ -1,4 +1,4 @@
-#Let be a state as a cell of the maze with all its information,
+# Let be a state as a cell of the maze with all its information,
 # its value and its neighbours.
 # The unique identifier for a state is the cell position (row, col).
 class State:
@@ -8,8 +8,8 @@ class State:
         self.node = node
         self.neighbors = sorted(neighbors)
 
-    #Function to get the node
-    #associated with the state
+    # Function to get the node
+    # associated with the state
     def getNode(self):
         return self.node
 

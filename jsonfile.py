@@ -203,3 +203,14 @@ class JsonFile:
                         consistent = False
                         return consistent
         return consistent
+
+    @staticmethod
+    def read_problem(jsonFile):
+        data = JsonFile.read(jsonFile)
+
+        # We collect information from the Json File
+        initial = data.get('INITIAL')
+        objetive = data.get('OBJETIVE')
+        json_path_to_maze = data.get('MAZE')
+
+        return initial, objetive, json_path_to_maze

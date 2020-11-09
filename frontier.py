@@ -1,5 +1,5 @@
 from Node import Node
-
+from State import State
 class Frontier:
     def __init__(self):
         self.listFrontier = self.createFrontier()
@@ -10,7 +10,9 @@ class Frontier:
 
     def insert(self, nodeTree):
         self.listFrontier.append(nodeTree)
-        self.listFrontier = sorted(self.listFrontier, key=lambda node: Node.get)
+        self.listFrontier = sorted(self.listFrontier, key=lambda node: Node.getState().getColumn())
+        self.listFrontier = sorted(self.listFrontier, key=lambda node: Node.getState().getRow())
+        self.listFrontier = sorted(self.listFrontier, key=lambda node: Node.getF())
 
     def delete(self):
         return self.listFrontier.pop(0)
