@@ -16,6 +16,7 @@ class Cell:
         self.cellSouth = None
         self.cellEast = None
         self.links = dict()  # Dictionary to store links, each key of the dictionary is a cell.
+        self.neighbors = self.getNeighbors()
 
     """Print a cell (r, c)"""
     def __str__(self):
@@ -48,7 +49,7 @@ class Cell:
         return cell in self.links
 
     """Method to store in a list all the neighbors of a cell"""
-    def neighbors(self):
+    def getNeighbors(self):
         neighbors = []
         if self.cellNorth:
             neighbors.append(self.cellNorth)

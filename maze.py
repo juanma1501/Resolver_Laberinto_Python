@@ -43,7 +43,7 @@ if __name__ == "__main__":
         g = JsonFile.create_from_json(args.path)
         if JsonFile.check_consistency(args.path):  # We check the consistency of the json file
             Draw(g, 'Maze ' + str(g.rows) + 'x' + str(g.columns)).draw()
-            print(g.neighbors())
+            print(g.getNeighbors())
         else:
             print("The introduced JSON file is not consistent."
                   "---END OF THE PROGRAM---")

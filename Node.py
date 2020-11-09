@@ -1,5 +1,4 @@
 import itertools
-import random
 
 
 class Node:
@@ -8,8 +7,8 @@ class Node:
         self.parentNode = parent
         self.id = itertools.count().next
         self.state = state
-        self.value = value
-        self.depth = parent.getDepth() + depth
+        self.f = f
+        self.depth = parent.getDepth() + 1
         self.cost = parent.getCost() + cost
         self.action = action
 
@@ -19,8 +18,8 @@ class Node:
     def getDepth(self):
         return self.depth
 
-    def getValue(self):
-        return self.value
+    def getF(self):
+        return self.f
 
     def getId(self):
         return self.id
