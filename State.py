@@ -45,6 +45,7 @@ class State:
                 cost = 1
 
                 successors.append([mov, state, cost])
+                i = i + 1
 
         return successors
 
