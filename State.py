@@ -3,10 +3,13 @@
 # The unique identifier for a state is the cell position (row, col).
 class State:
 
-    def __init__(self, row, column, node, neighbors):
-        self.id = (row, column)
+    def __init__(self, id, node, neighbors):
+        self.id = id
         self.node = node
-        self.neighbors = sorted(neighbors)
+        self.neighbors = neighbors
+
+    def __str__(self):
+        return "(" + id[0] + ", " + id[1] + ")"
 
     # Function to get the node
     # associated with the state
@@ -28,3 +31,23 @@ class State:
     # Function to get the column of the cell
     def getColumn(self):
         return self.id[1]
+
+    def successors(self, state):
+        i = 0
+        movs = ["N", "E", "S", "O"]
+        successors = []
+        neighbors = state.getNeighbors()
+
+        for nei in neighbors:
+            if neighbors != "N/A":
+                mov = movs[i]
+                state = nei
+                cost = 1
+
+                successors.append([mov, state, cost])
+
+        return successors
+
+
+
+

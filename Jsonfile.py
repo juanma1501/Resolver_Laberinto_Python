@@ -9,7 +9,7 @@
 
 # !/usr/bin/env python
 import json
-from board import Board
+from Board import Board
 
 
 class JsonFile:
@@ -210,7 +210,7 @@ class JsonFile:
 
         # We collect information from the Json File
         initial = data.get('INITIAL')
-        objetive = data.get('OBJETIVE')
+        objective = data.get('OBJECTIVE')
         json_path_to_maze = data.get('MAZE')
 
-        return initial, objetive, json_path_to_maze
+        return initial, objective, json_path_to_maze

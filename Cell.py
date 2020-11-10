@@ -53,10 +53,18 @@ class Cell:
         neighbors = []
         if self.cellNorth:
             neighbors.append(self.cellNorth)
-        if self.cellSouth:
-            neighbors.append(self.cellSouth)
-        if self.cellWest:
-            neighbors.append(self.cellWest)
+        else:
+            neighbors.append("N/A")
         if self.cellEast:
             neighbors.append(self.cellEast)
+        else:
+            neighbors.append("N/A")
+        if self.cellSouth:
+            neighbors.append(self.cellSouth)
+        else:
+            neighbors.append("N/A")
+        if self.cellWest:
+            neighbors.append(self.cellWest)
+        else:
+            neighbors.append("N/A")
         return neighbors

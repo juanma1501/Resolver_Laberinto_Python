@@ -5,7 +5,7 @@
 #                  the maze is going to be created following Wilson´s algorithm.
 ################################################################################
 
-from cell import Cell
+from Cell import Cell
 import random
 
 

@@ -1,5 +1,5 @@
 from Node import Node
-from State import State
+
 class Frontier:
     def __init__(self):
         self.listFrontier = self.createFrontier()

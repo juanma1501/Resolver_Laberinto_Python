@@ -10,7 +10,7 @@ os.environ['PYGAME_HIDE_SUPPORT_PROMPT'] = "hide"
 import pygame
 import sys
 from pygame.locals import *
-from jsonfile import JsonFile
+from Jsonfile import JsonFile
 
 GREEN = (0, 143, 57)
 GREY = (230, 230, 230)

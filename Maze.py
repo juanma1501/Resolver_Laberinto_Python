@@ -6,10 +6,10 @@
 ################################################################################
 
 import argparse
-from board import Board
-from draw import Draw
-from jsonfile import JsonFile
-from wilson import Wilson
+from Board import Board
+from Draw import Draw
+from Jsonfile import JsonFile
+from Wilson import Wilson
 
 if __name__ == "__main__":
 
@@ -30,6 +30,10 @@ if __name__ == "__main__":
     json_param = json_param.add_argument_group()
     json_param.add_argument('path', type=str, help='Write the path of the Json file.')
 
+    json_param = subparser.add_parser('problem', help="Write the path of the Json file of the problem.")
+    json_param = json_param.add_argument_group()
+    json_param.add_argument('path', type=str, help='Write the path of the Json file of the problem.')
+
     args = parser.parse_args()
     if args.subparser_name == "console":
         g = Board(args.r, args.c)
@@ -40,7 +44,6 @@ if __name__ == "__main__":
         Wilson.create(g)
         Draw(g, 'Maze ' + str(g.rows) + 'x' + str(g.columns)).draw()
     elif args.subparser_name == "json":
-        #JsonFile.read_problem(args.path)
         g = JsonFile.create_from_json(args.path)
         if JsonFile.check_consistency(args.path):  # We check the consistency of the json file
             Draw(g, 'Maze ' + str(g.rows) + 'x' + str(g.columns)).draw()
@@ -48,3 +51,5 @@ if __name__ == "__main__":
         else:
             print("The introduced JSON file is not consistent."
                   "---END OF THE PROGRAM---")
+    elif args.subparser_name == "problem":
+        JsonFile.read_problem(args.path)
