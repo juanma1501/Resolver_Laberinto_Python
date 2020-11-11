@@ -205,8 +205,8 @@ class JsonFile:
         return consistent
 
     @staticmethod
-    def read_problem(jsonFile):
-        data = JsonFile.read(jsonFile)
+    def read_problem(jsonfile):
+        data = JsonFile.read(jsonfile)
 
         # We collect information from the Json File
         initial = data.get('INITIAL')

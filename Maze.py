@@ -10,6 +10,7 @@ from Board import Board
 from Draw import Draw
 from Jsonfile import JsonFile
 from Wilson import Wilson
+from State import State
 
 if __name__ == "__main__":
 
