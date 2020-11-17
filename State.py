@@ -34,21 +34,22 @@ class State:
 
     def successors(self, state):
         i = 0
-        movs = ["N", "E", "S", "O"]
         successors = []
         neighbors = state.getNeighbors()
 
-        for nei in neighbors:
-            if neighbors != "N/A":
-                mov = movs[i]
-                state = nei
-                cost = 1
+        for cell in neighbors:
+            if state.getRow - 1 == cell.row:
+                mov = "N"
+            elif state.getRow + 1 == cell.row:
+                mov = "S"
+            elif state.getColumn - 1 == cell.column:
+                mov = "O"
+            elif state.getColumn + 1 == cell.column:
+                mov = "E"
+            state = cell
+            cost = 1
 
-                successors.append([mov, state, cost])
-                i = i + 1
+            successors.append([mov, state, cost])
+            i = i + 1
 
         return successors
-
-
-
-

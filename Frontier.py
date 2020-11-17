@@ -10,9 +10,7 @@ class Frontier:
 
     def insert(self, nodeTree):
         self.listFrontier.append(nodeTree)
-        self.listFrontier = sorted(self.listFrontier, key=lambda node: Node.getState().getColumn())
-        self.listFrontier = sorted(self.listFrontier, key=lambda node: Node.getState().getRow())
-        self.listFrontier = sorted(self.listFrontier, key=lambda node: Node.getF())
+        self.listFrontier = sorted(self.listFrontier, key=lambda node: (Node.getState().getColumn(), Node.getState().getRow(), Node.getF()))
 
     def delete(self):
         return self.listFrontier.pop(0)
