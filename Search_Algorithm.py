@@ -10,13 +10,21 @@ generatedNodes = 0
 
 
 def writeSolution(solution, final_node, strategy, problem):
+    i = 0
     # with open(solutionFile, 'w') as f:
     print("[id][cost,state,father_id,action,depth,h,value]")
     for node in solution:
-        print("[" + str(node.getId()) + "][" + str(node.getCost()) + "," + str(node.getState()) + "," + str(
-            node.getParent()) + ","
+        if i == 0:
+            print("[" + str(node.getId()) + "][" + str(node.getCost()) + "," + str(node.getState().getId()) + "," + str(node.getParent()) + ","
               + str(node.getAction()) + "," + str(node.getDepth()) + ","
               + str(node.getHeuristic()) + "," + str(node.getF()) + "]")
+        else:
+            print("[" + str(node.getId()) + "][" + str(node.getCost()) + "," + str(node.getState().getId()) + "," + str(
+                node.getParent().getState().getId()) + ","
+                  + str(node.getAction()) + "," + str(node.getDepth()) + ","
+                  + str(node.getHeuristic()) + "," + str(node.getF()) + "]")
+
+        i = i + 1
 
 
 def create_node(parent, state, cost, strategy, action):
@@ -77,12 +85,12 @@ def cut(dictCut, ln, strategy):
 
 
 def search(prob, strategy, depth):
-    dictCut = {}
     frontier = Frontier.Frontier()
+    dictCut = {}
     initial_state = prob.getInitialState()
     initial_node = create_node(None, initial_state, 0, strategy, None)
     frontier.insert(initial_node)
-    sp = StatesSpace.StatesSpace()
+    sp = prob.getStatesSpace()
     solution = None
 
     while (solution is None) and (not (frontier.isEmpty())):
@@ -96,18 +104,19 @@ def search(prob, strategy, depth):
             listCutNodes, dictCut = cut(dictCut, ln, strategy)
             frontier.insertList(listCutNodes)
 
-        if solution is None:
-            return None, None
-        else:
-            return createSolution(current_node), current_node
+    if solution is None:
+        return None, None
+    else:
+        return createSolution(current_node), current_node
 
 
 def search_solution(prob, strategy, max_depth):
     current_depth = 0
     solution = None
 
-    while (solution == None) and (current_depth <= max_depth):
+    while (solution is None) and (current_depth <= max_depth):
         solution, final_node = search(prob, strategy, current_depth)
         current_depth = current_depth + 1
+
 
     return solution, final_node

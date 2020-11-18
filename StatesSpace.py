@@ -3,7 +3,8 @@ from State import State
 
 
 class StatesSpace:
-    def __init__(self):
+    def __init__(self, board):
+        self.board = board
         pass
 
     def getBoard(self):
@@ -33,7 +34,8 @@ class StatesSpace:
             elif cell.getMaterial() == 3:
                 cost = 4
 
-            state = State((cell.getRow(), cell.getColumn()), cell.neighbors(), self.calculateHeuristic(cell, cell.neighbors()))
+            state = State((cell.getRow(), cell.getColumn()), cell.getLinks(), self.calculateHeuristic(cell, cell.
+                                                                                                      getLinks()))
 
             successors.append([mov, state, cost])
             i = i + 1
@@ -53,5 +55,5 @@ class StatesSpace:
     def heuristic_handler(self, idNode1, idNode2):
         row1, col1 = idNode1.getRow(), idNode1.getColumn()
         row2, col2 = idNode2.getRow(), idNode2.getColumn()
-        h = abs(row1 - row2) + (col1 - col2)
+        h = abs(row1 - row2) + abs(col1 - col2)
         return h

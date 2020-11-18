@@ -61,9 +61,9 @@ if __name__ == "__main__":
         if JsonFile.check_consistency(prob.getMazePath()):  # We check the consistency of the json file
 
             prob = Problem(args.path, board=g)
-            solution, last_node = Search_Algorithm.search_solution(prob, "DEPTH", 100000000)
+            solution, last_node = Search_Algorithm.search_solution(prob, "A*", 100000000)
             if (solution is not None):
-                Search_Algorithm.writeSolution(solution, last_node, "BREADTH", prob)
+                Search_Algorithm.writeSolution(solution, last_node, "A*", prob)
                 print("Algoritmo completado con éxito")
             else:
                 print("No se ha encontrado solucion")

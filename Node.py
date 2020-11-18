@@ -74,6 +74,4 @@ class Node:
         return f
 
     def __lt__(self, other):
-        return (self.getF(), self.getState().getRow()
-                , self.getState().getColumn()) < (other.getF(), other.getState().getRow(),
-                                                                                       other.getState().getColumn())
+        return (self.getF(), self.getState().getRow(), self.getState().getColumn()) < (other.getF(), self.getState().getRow(), self.getState().getColumn())

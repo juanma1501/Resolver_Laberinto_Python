@@ -74,3 +74,19 @@ class Cell:
         if self.cellWest:
             neighbors.append(self.cellWest)
         return neighbors
+
+    def getLinks(self):
+        links = []
+        if self.isLinked(self.cellNorth):
+            links.append(self.cellNorth)
+
+        if self.isLinked(self.cellEast):
+            links.append(self.cellEast)
+
+        if self.isLinked(self.cellSouth):
+            links.append(self.cellSouth)
+
+        if self.isLinked(self.cellWest):
+            links.append(self.cellWest)
+
+        return links
