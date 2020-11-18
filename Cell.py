@@ -1,3 +1,6 @@
+import random
+
+
 ###############################################################################
 #   Name of the class: Cell
 #   Date of creation: 19/10/2020
@@ -6,8 +9,8 @@
 ################################################################################
 
 class Cell:
-
     """Constructor"""
+
     def __init__(self, row, column):
         self.column = column
         self.row = row
@@ -15,9 +18,17 @@ class Cell:
         self.cellWest = None
         self.cellSouth = None
         self.cellEast = None
+        self.material = random.randint(0, 3)
         self.links = dict()  # Dictionary to store links, each key of the dictionary is a cell.
 
+    def getRow(self):
+        return self.row
+
+    def getColumn(self):
+        return self.column
+
     """Print a cell (r, c)"""
+
     def __str__(self):
         return "(" + str(self.row) + ", " + str(self.column) + ")"
 
@@ -44,10 +55,12 @@ class Cell:
         return self
 
     """Method to know if a cell is linked with another one using links dictionary"""
+
     def isLinked(self, cell):
         return cell in self.links
 
     """Method to store in a list all the neighbors of a cell"""
+
     def neighbors(self):
         neighbors = []
         if self.cellNorth:

@@ -10,7 +10,8 @@ from Board import Board
 from Draw import Draw
 from Jsonfile import JsonFile
 from Wilson import Wilson
-from State import State
+from Problem import Problem
+import Search_Algorithm
 
 if __name__ == "__main__":
 
@@ -52,5 +53,25 @@ if __name__ == "__main__":
         else:
             print("The introduced JSON file is not consistent."
                   "---END OF THE PROGRAM---")
+
     elif args.subparser_name == "problem":
-        JsonFile.read_problem(args.path)
+        prob = Problem(args.path)
+        g = JsonFile.create_from_json(prob.getMazePath())
+        solution, last_node = Search_Algorithm.search_solution(prob, "GREEDY", 100000000)
+
+        if (solution is not None):
+            Search_Algorithm.writeSolution(solution, last_node, "GREEDY", prob)
+            print("Algoritmo completado con éxito")
+        else:
+            print("No se ha encontrado solucion")
+        if JsonFile.check_consistency(prob.getMazePath()):  # We check the consistency of the json file
+            Draw(g, 'Maze ' + str(g.rows) + 'x' + str(g.columns)).draw()
+            print(g.getNeighbors())
+        else:
+            print("The introduced JSON file is not consistent."
+                  "---END OF THE PROGRAM---")
+
+
+
+
+

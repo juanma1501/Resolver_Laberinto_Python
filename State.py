@@ -3,18 +3,17 @@
 # The unique identifier for a state is the cell position (row, col).
 class State:
 
-    def __init__(self, id, node, neighbors):
+    def __init__(self, id, neighbors, heuristic):
+        self.row, self.column = id
         self.id = id
-        self.node = node
         self.neighbors = neighbors
+        self.heuristic = heuristic
 
     def __str__(self):
         return "(" + id[0] + ", " + id[1] + ")"
 
-    # Function to get the node
-    # associated with the state
-    def getNode(self):
-        return self.node
+    def getHeuristic(self):
+        return self.heuristic
 
     # Function to get the identifier
     def getId(self):
@@ -26,30 +25,8 @@ class State:
 
     # Function to get the row of the cell
     def getRow(self):
-        return self.id[0]
+        return self.row
 
     # Function to get the column of the cell
     def getColumn(self):
-        return self.id[1]
-
-    def successors(self, state):
-        i = 0
-        successors = []
-        neighbors = state.getNeighbors()
-
-        for cell in neighbors:
-            if state.getRow - 1 == cell.row:
-                mov = "N"
-            elif state.getRow + 1 == cell.row:
-                mov = "S"
-            elif state.getColumn - 1 == cell.column:
-                mov = "O"
-            elif state.getColumn + 1 == cell.column:
-                mov = "E"
-            state = cell
-            cost = 1
-
-            successors.append([mov, state, cost])
-            i = i + 1
-
-        return successors
+        return self.column

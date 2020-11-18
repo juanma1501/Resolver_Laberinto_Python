@@ -71,8 +71,8 @@ class JsonFile:
         cols = data.get('cols')
         links = []  # En esta lista van a estar todos los true y false de todas las celdas
 
-        # Create the grid
-        g = Board(rows, cols)
+        # Create the board
+        board = Board(rows, cols)
 
         # Loop to store in a list named "links" the links of each each cell
         for i in range(rows):
@@ -81,7 +81,7 @@ class JsonFile:
 
         # Loop for link each cell with others
         i = 0
-        for cell in g.all_cells():
+        for cell in board.all_cells():
             if links[i][0]:
                 cell.link(cell.cellNorth)
                 pass
@@ -95,7 +95,7 @@ class JsonFile:
                 cell.link(cell.cellWest)
             i = i + 1
 
-        return g
+        return board
 
     ################################################################################################
     #         Name of the method: export
