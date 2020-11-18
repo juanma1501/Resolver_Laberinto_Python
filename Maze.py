@@ -55,21 +55,27 @@ if __name__ == "__main__":
                   "---END OF THE PROGRAM---")
 
     elif args.subparser_name == "problem":
+
+
+
         prob = Problem(args.path)
         g = JsonFile.create_from_json(prob.getMazePath())
-        solution, last_node = Search_Algorithm.search_solution(prob, "GREEDY", 100000000)
-
-        if (solution is not None):
-            Search_Algorithm.writeSolution(solution, last_node, "GREEDY", prob)
-            print("Algoritmo completado con éxito")
-        else:
-            print("No se ha encontrado solucion")
         if JsonFile.check_consistency(prob.getMazePath()):  # We check the consistency of the json file
+
+            prob = Problem(args.path, board=g)
+            solution, last_node = Search_Algorithm.search_solution(prob, "UNIFORM", 100000000)
+            if (solution is not None):
+                Search_Algorithm.writeSolution(solution, last_node, "BREADTH", prob)
+                print("Algoritmo completado con éxito")
+            else:
+                print("No se ha encontrado solucion")
+
             Draw(g, 'Maze ' + str(g.rows) + 'x' + str(g.columns)).draw()
-            print(g.getNeighbors())
         else:
             print("The introduced JSON file is not consistent."
                   "---END OF THE PROGRAM---")
+
+
 
 
 

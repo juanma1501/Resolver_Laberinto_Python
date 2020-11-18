@@ -1,8 +1,7 @@
 import Stack
-import Node
+from Node import Node
 import Frontier
 import StatesSpace
-import State
 
 solutionFile = "solution.txt"
 
@@ -11,16 +10,16 @@ generatedNodes = 0
 
 
 def writeSolution(solution, final_node, strategy, problem):
-    with open(solutionFile, 'w') as f:
+    #with open(solutionFile, 'w') as f:
         print("[id][cost,state,father_id,action,depth,h,value]")
         for node in solution:
-            print("[" + node.getId() + "][" + node.getCost() + "," + node.getState() + "," + node.getParentId() + ","
-                  + node.getAction() + "," + node.getDepth() + ","
-                  + node.getHeuristic() + "," + node.getF() + "]")
+            print("[" + str(node.getId()) + "][" + str(node.getCost()) + "," + str(node.getState()) + "," + str(node.getParent()) + ","
+                  + str(node.getAction()) + "," + str(node.getDepth()) + ","
+                  + str(node.getHeuristic()) + "," + str(node.getF()) + "]")
 
 
 def create_node(parent, state, cost, strategy, action):
-    node = Node.Node(parent, state, cost, strategy, action)
+    node = Node(parent, state, cost, strategy, action)
     return node
 
 
@@ -41,9 +40,9 @@ def createSolution(node):
     stack = Stack.Stack()
     nodeTree = node
 
-    while not (nodeTree.getParent == None):
+    while not (nodeTree.getParent() is None):
         stack.push(nodeTree)
-        nodeTree = nodeTree.getParent
+        nodeTree = nodeTree.getParent()
     stack.push(nodeTree)
 
     solution = []
@@ -78,24 +77,26 @@ def cut(dictCut, ln, strategy):
 
 def search(prob, strategy, depth):
     dictCut = {}
-    frontier = Frontier.Frontier
-    initial_state = prob.getInitial()
+    frontier = Frontier.Frontier()
+    initial_state = prob.getInitialState()
     initial_node = create_node(None, initial_state, 0, strategy, None)
     frontier.insert(initial_node)
+    sp = StatesSpace.StatesSpace()
     solution = None
 
-    while ((solution == None) and (not (frontier.isEmpty()))):
+    while (solution is None) and (not (frontier.isEmpty())):
         current_node = frontier.delete()
         current_state = current_node.getState()
+        print(current_state.getId())
         if prob.isObjective(current_state):
             solution = True
         else:
-            ls = StatesSpace.StatesSpace.successors(current_state)
+            ls = sp.successors(current_state)
             ln = createListNodesTree(ls, current_node, depth, strategy)
             listCutNodes, dictCut = cut(dictCut, ln, strategy)
-            frontier.insert(listCutNodes)
+            frontier.insertList(listCutNodes)
 
-        if (solution == None):
+        if solution is None:
             return None, None
         else:
             return createSolution(current_node), current_node

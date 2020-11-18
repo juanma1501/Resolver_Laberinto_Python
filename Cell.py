@@ -27,6 +27,9 @@ class Cell:
     def getColumn(self):
         return self.column
 
+    def getMaterial(self):
+        return self.material
+
     """Print a cell (r, c)"""
 
     def __str__(self):
@@ -60,7 +63,6 @@ class Cell:
         return cell in self.links
 
     """Method to store in a list all the neighbors of a cell"""
-
     def neighbors(self):
         neighbors = []
         if self.cellNorth:

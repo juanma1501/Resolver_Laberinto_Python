@@ -3,8 +3,8 @@ from State import State
 
 
 class StatesSpace:
-    def __init__(self, board):
-        self.board = board
+    def __init__(self):
+        pass
 
     def getBoard(self):
         return self.board
@@ -15,33 +15,32 @@ class StatesSpace:
         neighbors = state.getNeighbors()
 
         for cell in neighbors:
-            if state.getRow - 1 == cell.getRow():
+            if int(state.getRow()) - 1 == cell.getRow():
                 mov = "N"
-            elif state.getRow + 1 == cell.getRow():
+            elif int(state.getRow()) + 1 == cell.getRow():
                 mov = "S"
-            elif state.getColumn - 1 == cell.getColumn():
+            elif int(state.getColumn()) - 1 == cell.getColumn():
                 mov = "O"
-            elif state.getColumn + 1 == cell.getColumn():
+            elif int(state.getColumn()) + 1 == cell.getColumn():
                 mov = "E"
 
-            if cell.material == 0:
+            if cell.getMaterial() == 0:
                 cost = 1
-            elif cell.material == 1:
+            elif cell.getMaterial() == 1:
                 cost = 2
-            elif cell.material == 2:
+            elif cell.getMaterial() == 2:
                 cost = 3
-            elif cell.material == 3:
+            elif cell.getMaterial() == 3:
                 cost = 4
 
-            state = State((cell.getRow(), cell.getColumn()), cell.neighbors(), self.heuristic(cell, cell.neighbors))
+            state = State((cell.getRow(), cell.getColumn()), cell.neighbors(), self.calculateHeuristic(cell, cell.neighbors()))
 
             successors.append([mov, state, cost])
-            print(successors[1])
             i = i + 1
 
         return successors
 
-    def heuristic(self, node, neighbors):
+    def calculateHeuristic(self, node, neighbors):
         heuristics = []
 
         for n in neighbors:
@@ -52,7 +51,7 @@ class StatesSpace:
         return min(heuristics)
 
     def heuristic_handler(self, idNode1, idNode2):
-        row1, col1 = idNode1
-        row2, col2 = idNode2
+        row1, col1 = idNode1.getRow(), idNode1.getColumn()
+        row2, col2 = idNode2.getRow(), idNode2.getColumn()
         h = abs(row1 - row2) + (col1 - col2)
         return h

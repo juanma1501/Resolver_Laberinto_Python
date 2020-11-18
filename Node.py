@@ -24,8 +24,8 @@ class Node:
             self.cost = 0
             self.depth = 0
         else:
-            self.cost = parent.getCost + cost
-            self.depth = parent.getDepth + 1
+            self.cost = int(parent.getCost()) + int(cost)
+            self.depth = int(parent.getDepth()) + 1
 
         self.f = self.strategy(strategy)
 
@@ -43,6 +43,9 @@ class Node:
 
     def getState(self):
         return self.state
+
+    def getParent(self):
+        return self.parentNode
 
     def getParentId(self):
         return self.parentNode.getId()
@@ -62,7 +65,12 @@ class Node:
             f = self.cost
         elif strategy == 'GREEDY':
             f = self.heuristic
-        elif strategy == 'A':
+        elif strategy == 'A*':
             f = self.heuristic + self.cost
 
         return f
+
+    def __lt__(self, other):
+        return (self.getF(), self.getState().getRow()
+                , self.getState().getColumn()) < (other.getF(), other.getState().getRow(),
+                                                                                       other.getState().getColumn())

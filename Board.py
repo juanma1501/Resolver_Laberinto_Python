@@ -30,10 +30,10 @@ class Board:
        Returns: grid
     """
     def make_board(self):
-        grid = [[Cell(row, col)
+        board = [[Cell(row, col)
                  for col in range(self.columns)]
                 for row in range(self.rows)]
-        return grid
+        return board
 
     """Method to iterate in all rows, yield is used as return to use it later in all_cells"""
     def all_rows(self):

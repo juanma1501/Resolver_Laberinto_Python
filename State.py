@@ -9,15 +9,12 @@ class State:
         self.neighbors = neighbors
         self.heuristic = heuristic
 
-    def __str__(self):
-        return "(" + id[0] + ", " + id[1] + ")"
-
     def getHeuristic(self):
         return self.heuristic
 
     # Function to get the identifier
     def getId(self):
-        return self.id
+        return "(" + str(self.row) + ", " + str(self.column) + ")"
 
     # Function to get the list of neighbours
     def getNeighbors(self):
