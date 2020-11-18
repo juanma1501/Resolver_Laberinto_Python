@@ -60,7 +60,10 @@ class Node:
         if strategy == 'BREADTH':
             f = self.depth
         elif strategy == 'DEPTH':
-            f = int(abs(1/self.depth))
+            if self.depth == 0:
+                f = 0
+            else:
+                f = int(abs(1/self.depth))
         elif strategy == 'UNIFORM':
             f = self.cost
         elif strategy == 'GREEDY':

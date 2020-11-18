@@ -10,12 +10,13 @@ generatedNodes = 0
 
 
 def writeSolution(solution, final_node, strategy, problem):
-    #with open(solutionFile, 'w') as f:
-        print("[id][cost,state,father_id,action,depth,h,value]")
-        for node in solution:
-            print("[" + str(node.getId()) + "][" + str(node.getCost()) + "," + str(node.getState()) + "," + str(node.getParent()) + ","
-                  + str(node.getAction()) + "," + str(node.getDepth()) + ","
-                  + str(node.getHeuristic()) + "," + str(node.getF()) + "]")
+    # with open(solutionFile, 'w') as f:
+    print("[id][cost,state,father_id,action,depth,h,value]")
+    for node in solution:
+        print("[" + str(node.getId()) + "][" + str(node.getCost()) + "," + str(node.getState()) + "," + str(
+            node.getParent()) + ","
+              + str(node.getAction()) + "," + str(node.getDepth()) + ","
+              + str(node.getHeuristic()) + "," + str(node.getF()) + "]")
 
 
 def create_node(parent, state, cost, strategy, action):
@@ -57,10 +58,10 @@ def cut(dictCut, ln, strategy):
 
     for node in ln:
         stateNode = node.getState()
-        idState = stateNode.getId
+        idState = stateNode.getId()
         f_state = node.getF()
 
-        if (idState in dictCut):
+        if idState in dictCut:
             if strategy == "DEPTH":
                 if f_state > int(dictCut.get(idState)):
                     dictCut.update({idState: f_state})
@@ -87,7 +88,6 @@ def search(prob, strategy, depth):
     while (solution is None) and (not (frontier.isEmpty())):
         current_node = frontier.delete()
         current_state = current_node.getState()
-        print(current_state.getId())
         if prob.isObjective(current_state):
             solution = True
         else:
