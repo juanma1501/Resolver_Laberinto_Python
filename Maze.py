@@ -58,6 +58,7 @@ if __name__ == "__main__":
 
         prob = Problem(args.path)
         g = JsonFile.create_from_json(prob.getMazePath())
+        #Draw(g, 'Maze ' + str(g.rows) + 'x' + str(g.columns)).draw()
         if JsonFile.check_consistency(prob.getMazePath()):  # We check the consistency of the json file
 
             prob = Problem(args.path, board=g)

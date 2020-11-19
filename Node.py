@@ -1,12 +1,8 @@
-import itertools
-from State import State
-
-
 class Node:
-
+    class_counter = 0
     def __init__(self, parent, state, cost, strategy, action):
         # ID
-        self.id = itertools.count().__next__()
+        self.id = Node.class_counter
 
         # Parent
         self.parentNode = parent
@@ -28,6 +24,8 @@ class Node:
             self.depth = int(parent.getDepth()) + 1
 
         self.f = self.strategy(strategy)
+        print(str(self.id)+ " " + str(self.state.getId()))
+        Node.class_counter += 1
 
     def getCost(self):
         return self.cost
