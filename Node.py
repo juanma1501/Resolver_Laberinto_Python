@@ -1,6 +1,6 @@
 class Node:
     class_counter = 0
-    def __init__(self, parent, state, cost, strategy, action):
+    def __init__(self, parent, state, cost, strategy, action, depth):
         # ID
         self.id = Node.class_counter
 
@@ -16,12 +16,8 @@ class Node:
         else:
             self.heuristic = None
 
-        if self.parentNode == None:
-            self.cost = 0
-            self.depth = 0
-        else:
-            self.cost = int(parent.getCost()) + int(cost)
-            self.depth = int(parent.getDepth()) + 1
+        self.cost = cost
+        self.depth = depth
 
         self.f = self.strategy(strategy)
         print(str(self.id)+ " " + str(self.state.getId()))
@@ -72,4 +68,4 @@ class Node:
         return f
 
     def __lt__(self, other):
-        return (self.getF(), self.getState().getRow(), self.getState().getColumn()) < (other.getF(), self.getState().getRow(), self.getState().getColumn())
+        return (self.getF(), self.getState().getRow(), self.getState().getColumn(), self.getId()) < (other.getF(), self.getState().getRow(), self.getState().getColumn(), other.getId())

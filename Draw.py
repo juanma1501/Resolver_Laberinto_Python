@@ -14,7 +14,11 @@ from Jsonfile import JsonFile
 
 GREEN = (0, 143, 57)
 GREY = (230, 230, 230)
-
+BLACK = (0, 0, 0)
+GREEN_2 = (0, 255, 0)
+RED = (255, 0, 0)
+YELLOW = (255, 255, 12)
+BLUE = (0, 0, 255)
 
 class Draw:
     """Constructor"""
@@ -51,6 +55,16 @@ class Draw:
             x_axis = self.XMARGIN / 2  # y offset
             for cell in row:
                 if cell is not None:
+                    """"
+                    if cell.getValue() == 0:
+                        pygame.draw.rect(background, GREY, [x_axis, y_axis, self.CW, self.CH], 0)
+                    elif cell.getValue() == 1:
+                        pygame.draw.rect(background, BLACK, [x_axis, y_axis, self.CW, self.CH], 0)
+                    elif cell.getValue() == 2:
+                        pygame.draw.rect(background, GREEN_2, [x_axis, y_axis, self.CW, self.CH], 0)
+                    elif cell.getValue() == 3:
+                        pygame.draw.rect(background, BLUE, [x_axis, y_axis, self.CW, self.CH], 0)
+                    """
 
                     if not cell.isLinked(cell.cellNorth):
                         pygame.draw.line(background, GREEN, (x_axis, y_axis), (x_axis + self.CW, y_axis), 2)

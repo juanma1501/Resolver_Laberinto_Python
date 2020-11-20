@@ -6,6 +6,8 @@
 ################################################################################
 
 import argparse
+
+import Busqueda_gualo
 from Board import Board
 from Draw import Draw
 from Jsonfile import JsonFile
@@ -49,7 +51,6 @@ if __name__ == "__main__":
         g = JsonFile.create_from_json(args.path)
         if JsonFile.check_consistency(args.path):  # We check the consistency of the json file
             Draw(g, 'Maze ' + str(g.rows) + 'x' + str(g.columns)).draw()
-            print(g.getNeighbors())
         else:
             print("The introduced JSON file is not consistent."
                   "---END OF THE PROGRAM---")
@@ -62,9 +63,11 @@ if __name__ == "__main__":
         if JsonFile.check_consistency(prob.getMazePath()):  # We check the consistency of the json file
 
             prob = Problem(args.path, board=g)
-            solution, last_node = Search_Algorithm.search_solution(prob, "A*", 100000000)
+            #solution, last_node = Search_Algorithm.search_solution(prob, "A*", 100000000)
+            solution = Busqueda_gualo.search(prob, 1000000, 'GREEDY')
             if (solution is not None):
-                Search_Algorithm.writeSolution(solution, last_node, "A*", prob)
+                #Search_Algorithm.writeSolution(solution, last_node, "A*", prob)
+                Busqueda_gualo.writeSolution(solution, 'GREEDY', prob)
                 print("Algoritmo completado con éxito")
             else:
                 print("No se ha encontrado solucion")

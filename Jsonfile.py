@@ -70,7 +70,7 @@ class JsonFile:
         rows = data.get('rows')
         cols = data.get('cols')
         links = []  # En esta lista van a estar todos los true y false de todas las celdas
-
+        values = [] # En esta lista van a estar todos los valores de todas las celdas
         # Create the board
         board = Board(rows, cols)
 
@@ -78,21 +78,26 @@ class JsonFile:
         for i in range(rows):
             for j in range(cols):
                 links.append(data.get('cells').get('(' + str(i) + ', ' + str(j) + ')').get('neighbors'))
+                values.append(data.get('cells').get('(' + str(i) + ', ' + str(j) + ')').get('value'))
 
-        # Loop for link each cell with others
+        # Loop for link each cell with others and set the value of a cell
         i = 0
         for cell in board.all_cells():
             if links[i][0]:
                 cell.link(cell.cellNorth)
+                cell.value = values[i]
                 pass
             if links[i][1]:
                 cell.link(cell.cellEast)
+                cell.value = values[i]
                 pass
             if links[i][2]:
                 cell.link(cell.cellSouth)
+                cell.value = values[i]
                 pass
             if links[i][3]:
                 cell.link(cell.cellWest)
+                cell.value = values[i]
             i = i + 1
 
         return board

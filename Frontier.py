@@ -6,13 +6,14 @@ class Frontier:
         self.listFrontier = []
 
     def insert(self, nodeTree):
+        ##comentar todos los ordenamientos menos la ultima para ejecutar la busqueda de juanma
         self.listFrontier.append(nodeTree)
-        """sorted(self.listFrontier, key=attrgetter('f'))
+        sorted(self.listFrontier, key=attrgetter('f'))
         sorted(self.listFrontier, key=attrgetter('state.row'))
         sorted(self.listFrontier, key=attrgetter('state.column'))
         sorted(self.listFrontier, key=attrgetter('state.column'))
-        sorted(self.listFrontier, key=attrgetter('id'))"""
-        self.listFrontier = sorted(self.listFrontier)
+        sorted(self.listFrontier, key=attrgetter('id'))
+        #self.listFrontier = sorted(self.listFrontier)
 
 
 
@@ -21,7 +22,7 @@ class Frontier:
             self.insert(node)
 
     def delete(self):
-        return self.listFrontier.pop()
+        return self.listFrontier.pop(0)
 
     def isEmpty(self):
         return self.listFrontier == []

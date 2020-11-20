@@ -11,14 +11,14 @@ import random
 class Cell:
     """Constructor"""
 
-    def __init__(self, row, column):
+    def __init__(self, row, column, value):
         self.column = column
         self.row = row
         self.cellNorth = None
         self.cellWest = None
         self.cellSouth = None
         self.cellEast = None
-        self.material = random.randint(0, 3)
+        self.value = value
         self.links = dict()  # Dictionary to store links, each key of the dictionary is a cell.
 
     def getRow(self):
@@ -27,13 +27,13 @@ class Cell:
     def getColumn(self):
         return self.column
 
-    def getMaterial(self):
-        return self.material
+    def getValue(self):
+        return self.value
 
     """Print a cell (r, c)"""
 
     def __str__(self):
-        return "(" + str(self.row) + ", " + str(self.column) + ")"
+        return "(" + str(self.row) + ", " + str(self.column) + ")" + "valor" +str(self.value)
 
     ###############################################################################################
     #     Name of the method: link

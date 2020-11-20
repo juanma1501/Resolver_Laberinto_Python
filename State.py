@@ -3,14 +3,19 @@
 # The unique identifier for a state is the cell position (row, col).
 class State:
 
-    def __init__(self, id, neighbors, heuristic):
+    def __init__(self, id, neighbors, heuristic, value):
         self.row, self.column = id
         self.id = id
         self.neighbors = neighbors
         self.heuristic = heuristic
+        self.value = value
+        print(self.value)
 
     def getHeuristic(self):
         return self.heuristic
+
+    def getValue(self):
+        return self.value
 
     # Function to get the identifier
     def getId(self):

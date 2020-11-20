@@ -8,8 +8,9 @@ class Problem:
         self.idInitial, self.IdObjective, self.json_path_to_maze = JsonFile.read_problem(jsonfile)
         if board is not None:
             c = board[int(self.idInitial[1]), int(self.idInitial[4])]
-            self.initialState = State((self.idInitial[1], self.idInitial[4]), c.getLinks(), 0)
+            self.initialState = State((self.idInitial[1], self.idInitial[4]), c.getLinks(), 0, value=0)
         self.statesSpaces = StatesSpace.StatesSpace(board)
+
 
 
     def getStatesSpace(self):
