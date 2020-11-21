@@ -9,7 +9,6 @@ class State:
         self.neighbors = neighbors
         self.heuristic = heuristic
         self.value = value
-        print(self.value)
 
     def getHeuristic(self):
         return self.heuristic
@@ -32,3 +31,7 @@ class State:
     # Function to get the column of the cell
     def getColumn(self):
         return self.column
+
+    def heuristic_calculation(self, origin_row, origin_column, target_row, target_column):
+        h = abs(int(origin_row) - target_row) + abs(int(origin_column) - target_column)
+        self.heuristic = h

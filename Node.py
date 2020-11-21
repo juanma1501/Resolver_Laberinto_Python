@@ -3,7 +3,6 @@ class Node:
     def __init__(self, parent, state, cost, strategy, action, depth):
         # ID
         self.id = Node.class_counter
-
         # Parent
         self.parentNode = parent
 
@@ -20,7 +19,6 @@ class Node:
         self.depth = depth
 
         self.f = self.strategy(strategy)
-        print(str(self.id)+ " " + str(self.state.getId()))
         Node.class_counter += 1
 
     def getCost(self):
@@ -66,6 +64,9 @@ class Node:
             f = self.heuristic + self.cost
 
         return f
+    def heuristic_calculation(self, origin_row, origin_column, target_row, target_column):
+        h = abs(int(origin_row) - target_row) + abs(int(origin_column) - target_column)
+        self.heuristic = h
 
     def __lt__(self, other):
         return (self.getF(), self.getState().getRow(), self.getState().getColumn(), self.getId()) < (other.getF(), self.getState().getRow(), self.getState().getColumn(), other.getId())

@@ -59,14 +59,11 @@ if __name__ == "__main__":
 
         prob = Problem(args.path)
         g = JsonFile.create_from_json(prob.getMazePath())
-        #Draw(g, 'Maze ' + str(g.rows) + 'x' + str(g.columns)).draw()
         if JsonFile.check_consistency(prob.getMazePath()):  # We check the consistency of the json file
 
             prob = Problem(args.path, board=g)
-            #solution, last_node = Search_Algorithm.search_solution(prob, "A*", 100000000)
             solution = Busqueda_gualo.search(prob, 1000000, 'GREEDY')
             if (solution is not None):
-                #Search_Algorithm.writeSolution(solution, last_node, "A*", prob)
                 Busqueda_gualo.writeSolution(solution, 'GREEDY', prob)
                 print("Algoritmo completado con éxito")
             else:
