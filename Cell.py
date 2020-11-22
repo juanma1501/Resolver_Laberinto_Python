@@ -33,7 +33,7 @@ class Cell:
     """Print a cell (r, c)"""
 
     def __str__(self):
-        return "(" + str(self.row) + ", " + str(self.column) + ")" + "valor" +str(self.value)
+        return "(" + str(self.row) + ", " + str(self.column) + ")" + "valor" + str(self.value)
 
     ###############################################################################################
     #     Name of the method: link
@@ -63,6 +63,7 @@ class Cell:
         return cell in self.links
 
     """Method to store in a list all the neighbors of a cell"""
+
     def neighbors(self):
         neighbors = []
         if self.cellNorth:

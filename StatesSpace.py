@@ -1,4 +1,3 @@
-import Board
 from State import State
 
 
@@ -11,25 +10,25 @@ class StatesSpace:
         return self.board
 
     def successors(self, state, problem):
-        i = 0
+        mov = None
         successors = []
         neighbors = state.getNeighbors()
 
         for cell in neighbors:
-            if int(state.getRow()) - 1 == cell.getRow():
+            if state.getRow() - 1 == cell.getRow():
                 mov = "N"
-            elif int(state.getRow()) + 1 == cell.getRow():
+            if state.getRow() + 1 == cell.getRow():
                 mov = "S"
-            elif int(state.getColumn()) - 1 == cell.getColumn():
+            if state.getColumn() - 1 == cell.getColumn():
                 mov = "O"
-            elif int(state.getColumn()) + 1 == cell.getColumn():
+            if state.getColumn() + 1 == cell.getColumn():
                 mov = "E"
+            #print("Estado: " + state.getId() + "  sucesor: " + cell.__str__() + "  mov: " + mov)
 
-            state = State((cell.getRow(), cell.getColumn()), cell.getLinks(), self.calculateHeuristic(cell, cell.
+            new_state = State((cell.getRow(), cell.getColumn()), cell.getLinks(), self.calculateHeuristic(cell, cell.
                                                                                                       getLinks(), problem), cell.getValue())
             cost = int(cell.getValue()) + 1
-            successors.append([mov, state, cost])
-            i = i + 1
+            successors.append([mov, new_state, cost])
 
         return successors
 
@@ -39,7 +38,7 @@ class StatesSpace:
         for n in neighbors:
             h = self.heuristic_handler(n, int(problem.getObjectiveId()[1]), int(problem.getObjectiveId()[4]))
             heuristics.append(h)
-        if heuristics == []:
+        if not heuristics: # Significa que heuristic == []
             heuristics.append(0)
         return min(heuristics)
 

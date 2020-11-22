@@ -17,8 +17,12 @@ GREY = (230, 230, 230)
 BLACK = (0, 0, 0)
 GREEN_2 = (0, 255, 0)
 RED = (255, 0, 0)
-YELLOW = (255, 255, 12)
+YELLOW = (169, 131, 7)
 BLUE = (0, 0, 255)
+CYAN = (0, 132, 255)
+BG_BLUE = (224, 255, 255)
+BROWN = (194, 155, 97)
+WHITE = (0, 0, 0)
 
 class Draw:
     """Constructor"""
@@ -40,7 +44,7 @@ class Draw:
         background = pygame.display.set_mode((self.WW, self.WH), pygame.RESIZABLE, BIT_COLOR_32)
         pygame.display.set_caption(self.title)
 
-        background.fill(GREY)  # Colour of the background
+        background.fill(BG_BLUE)  # Colour of the background
 
         save_img = pygame.image.load('images/btnSave.png')  # We load save icon
         save_img = pygame.transform.scale(save_img, (20, 20))  # We scale it
@@ -55,30 +59,29 @@ class Draw:
             x_axis = self.XMARGIN / 2  # y offset
             for cell in row:
                 if cell is not None:
-                    """"
+
+                    if not cell.isLinked(cell.cellNorth):
+                        pygame.draw.line(background, WHITE, (x_axis, y_axis), (x_axis + self.CW, y_axis), 5)
+
+                    if not cell.isLinked(cell.cellSouth):
+                        pygame.draw.line(background, WHITE, (x_axis, y_axis + self.CH),
+                                         (x_axis + self.CW, y_axis + self.CH), 5)
+
+                    if not cell.isLinked(cell.cellWest):
+                        pygame.draw.line(background, WHITE, (x_axis, y_axis), (x_axis, y_axis + self.CH), 5)
+
+                    if not cell.isLinked(cell.cellEast):
+                        pygame.draw.line(background, WHITE, (x_axis + self.CW, y_axis),
+                                         (x_axis + self.CW, y_axis + self.CH), 5)
+
                     if cell.getValue() == 0:
                         pygame.draw.rect(background, GREY, [x_axis, y_axis, self.CW, self.CH], 0)
                     elif cell.getValue() == 1:
-                        pygame.draw.rect(background, BLACK, [x_axis, y_axis, self.CW, self.CH], 0)
+                        pygame.draw.rect(background, BROWN, [x_axis, y_axis, self.CW, self.CH], 0)
                     elif cell.getValue() == 2:
                         pygame.draw.rect(background, GREEN_2, [x_axis, y_axis, self.CW, self.CH], 0)
                     elif cell.getValue() == 3:
-                        pygame.draw.rect(background, BLUE, [x_axis, y_axis, self.CW, self.CH], 0)
-                    """
-
-                    if not cell.isLinked(cell.cellNorth):
-                        pygame.draw.line(background, GREEN, (x_axis, y_axis), (x_axis + self.CW, y_axis), 2)
-
-                    if not cell.isLinked(cell.cellSouth):
-                        pygame.draw.line(background, GREEN, (x_axis, y_axis + self.CH),
-                                         (x_axis + self.CW, y_axis + self.CH), 2)
-
-                    if not cell.isLinked(cell.cellWest):
-                        pygame.draw.line(background, GREEN, (x_axis, y_axis), (x_axis, y_axis + self.CH), 2)
-
-                    if not cell.isLinked(cell.cellEast):
-                        pygame.draw.line(background, GREEN, (x_axis + self.CW, y_axis),
-                                         (x_axis + self.CW, y_axis + self.CH), 2)
+                        pygame.draw.rect(background, CYAN, [x_axis, y_axis, self.CW, self.CH], 0)
                 x_axis = x_axis + self.CW
             y_axis = y_axis + self.CH
 

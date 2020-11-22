@@ -13,7 +13,9 @@ from Draw import Draw
 from Jsonfile import JsonFile
 from Wilson import Wilson
 from Problem import Problem
-import Search_Algorithm
+
+
+import StatesSpace
 
 if __name__ == "__main__":
 
