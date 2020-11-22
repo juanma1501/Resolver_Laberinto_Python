@@ -1,3 +1,4 @@
+from State import State
 class Node:
     class_counter = 0
     def __init__(self, parent, state, cost, strategy, action, depth):
@@ -10,10 +11,7 @@ class Node:
         self.action = action
         self.state = state
 
-        if strategy == 'GREEDY' or strategy == 'A*':
-            self.heuristic = self.state.getHeuristic()
-        else:
-            self.heuristic = None
+        self.heuristic = 0
 
         self.cost = cost
         self.depth = depth
@@ -55,18 +53,19 @@ class Node:
             if self.depth == 0:
                 f = 0
             else:
-                f = int(abs(1/self.depth))
+                f = float(abs(1/self.depth + 1))
         elif strategy == 'UNIFORM':
             f = self.cost
         elif strategy == 'GREEDY':
             f = self.heuristic
-        elif strategy == 'A*':
+        elif strategy == 'A':
             f = self.heuristic + self.cost
 
         return f
     def heuristic_calculation(self, origin_row, origin_column, target_row, target_column):
         h = abs(int(origin_row) - target_row) + abs(int(origin_column) - target_column)
+        self.getState().heuristic = h
         self.heuristic = h
 
     def __lt__(self, other):
-        return (self.getF(), self.getState().getRow(), self.getState().getColumn(), self.getId()) < (other.getF(), self.getState().getRow(), self.getState().getColumn(), other.getId())
+        return (self.getF(), self.getState().getRow(), self.getState().getColumn(), self.getId()) < (other.getF(), other.getState().getRow(), other.getState().getColumn(), other.getId())

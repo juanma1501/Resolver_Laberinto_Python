@@ -39,6 +39,7 @@ if __name__ == "__main__":
     json_param = subparser.add_parser('problem', help="Write the path of the Json file of the problem.")
     json_param = json_param.add_argument_group()
     json_param.add_argument('path', type=str, help='Write the path of the Json file of the problem.')
+    json_param.add_argument('strategy', type=str, help='Write the strategy to solve the maze.')
 
     args = parser.parse_args()
     if args.subparser_name == "console":
@@ -60,23 +61,27 @@ if __name__ == "__main__":
     elif args.subparser_name == "problem":
 
         prob = Problem(args.path)
-        g = JsonFile.create_from_json(prob.getMazePath())
-        if JsonFile.check_consistency(prob.getMazePath()):  # We check the consistency of the json file
+        strategy = args.strategy
+        if args.strategy == 'BREADTH' or 'DEPTH' or 'UNIFORM' or 'GREEDY' or 'A':
+            prob = Problem(args.path)
+            g = JsonFile.create_from_json(prob.getMazePath())
+            if JsonFile.check_consistency(prob.getMazePath()):  # We check the consistency of the json file
 
-            prob = Problem(args.path, board=g)
-            solution = Busqueda_gualo.search(prob, 1000000, 'GREEDY')
-            if (solution is not None):
-                Busqueda_gualo.writeSolution(solution, 'GREEDY', prob)
-                print("Algoritmo completado con éxito")
+                prob = Problem(args.path, board=g)
+                solution = Busqueda_gualo.search(prob, 1000000, strategy)
+                if (solution is not None):
+                    Busqueda_gualo.writeSolution(solution, strategy, prob)
+                    print("Algoritmo completado con éxito")
+                else:
+                    print("No se ha encontrado solucion")
+
+                Draw(g, 'Maze ' + str(g.rows) + 'x' + str(g.columns)).draw()
             else:
-                print("No se ha encontrado solucion")
-
-            Draw(g, 'Maze ' + str(g.rows) + 'x' + str(g.columns)).draw()
+                print("The introduced JSON file is not consistent."
+                      "---END OF THE PROGRAM---")
         else:
-            print("The introduced JSON file is not consistent."
-                  "---END OF THE PROGRAM---")
-
-
+            print("Introduce a valid strategy:"
+                  "BREADTH, DEPTH, UNIFORM or A")
 
 
 

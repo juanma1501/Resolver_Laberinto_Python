@@ -46,6 +46,7 @@ def search(problem, depth, strategy):
     node.heuristic_calculation(int(problem.getInitialId()[1]), int(problem.getInitialId()[4]),
                                int(problem.getObjectiveId()[1]), int(problem.getObjectiveId()[4]))
     node.f = node.strategy(strategy)
+
     fringe.insert(node)
     solution = False
 
