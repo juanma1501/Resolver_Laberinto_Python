@@ -18,7 +18,8 @@ class Cell:
         self.cellWest = None
         self.cellSouth = None
         self.cellEast = None
-        self.value = value
+        self.value = random.randint(0, 3)
+        self.solution = None
         self.links = dict()  # Dictionary to store links, each key of the dictionary is a cell.
 
     def getRow(self):

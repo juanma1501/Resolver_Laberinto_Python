@@ -226,7 +226,7 @@ class JsonFile:
         txt = open(name, "w")
         i = 0
         solution.reverse()
-        txt.write("[id][cost,state,father_id,action,depth,h,value]")
+        txt.write("[id][cost,state,father_id,action,depth,h,value]\n")
         for node in solution:
             if i == 0:
                 txt.write("[" + str(node.getId()) + "][" + str(node.cost) + "," + str(

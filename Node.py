@@ -1,6 +1,9 @@
 from State import State
+
+
 class Node:
     class_counter = 0
+
     def __init__(self, parent, state, cost, strategy, action, depth):
         # ID
         self.id = Node.class_counter
@@ -51,9 +54,10 @@ class Node:
             f = self.depth
         elif strategy == 'DEPTH':
             if self.depth == 0:
-                f = 0
+                f = 1.0
             else:
-                f = float(abs(1/self.depth + 1))
+                aux = self.depth + 1
+                f = float(abs(1 / aux))
         elif strategy == 'UNIFORM':
             f = self.cost
         elif strategy == 'GREEDY':
@@ -62,10 +66,12 @@ class Node:
             f = self.heuristic + self.cost
 
         return f
+
     def heuristic_calculation(self, origin_row, origin_column, target_row, target_column):
         h = abs(int(origin_row) - target_row) + abs(int(origin_column) - target_column)
         self.getState().heuristic = h
         self.heuristic = h
 
     def __lt__(self, other):
-        return (self.getF(), self.getState().getRow(), self.getState().getColumn(), self.getId()) < (other.getF(), other.getState().getRow(), other.getState().getColumn(), other.getId())
+        return (self.getF(), self.getState().getRow(), self.getState().getColumn(), self.getId()) < (
+        other.getF(), other.getState().getRow(), other.getState().getColumn(), other.getId())

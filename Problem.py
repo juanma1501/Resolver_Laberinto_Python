@@ -1,17 +1,31 @@
 from Jsonfile import JsonFile
 from State import State
 import StatesSpace
+
+
 class Problem:
 
-    #Constructor
-    def __init__(self, jsonfile, board= None):
+    # Constructor
+    def __init__(self, jsonfile, board=None):
         self.idInitial, self.IdObjective, self.json_path_to_maze = JsonFile.read_problem(jsonfile)
         if board is not None:
-            c = board[int(self.idInitial[1]), int(self.idInitial[4])]
-            self.initialState = State((int(self.idInitial[1]), int(self.idInitial[4])), c.getLinks(), 0, value=0)
+            self.rowI, self.colI = self.convert(self.idInitial)
+            self.rowO, self.colO = self.convert(self.IdObjective)
+            c = board[int(self.rowI), int(self.colI)]
+            self.initialState = State((int(self.rowI), int(self.colI)), c.getLinks(), 0, value=0)
         self.statesSpaces = StatesSpace.StatesSpace(board)
 
+    def getRowI(self):
+        return self.rowI
 
+    def getColI(self):
+        return self.colI
+
+    def getRowO(self):
+        return self.rowO
+
+    def getColO(self):
+        return self.colO
 
     def getStatesSpace(self):
         return self.statesSpaces
@@ -31,3 +45,12 @@ class Problem:
     def getMazePath(self):
         return self.json_path_to_maze
 
+    def convert(self, id_string):
+        start = id_string.index('(')
+        end = id_string.index(',')
+        row = id_string[start + 1: end]
+
+        start = id_string.index(' ')
+        end = id_string.index(')')
+        col = id_string[start + 1: end]
+        return row, col

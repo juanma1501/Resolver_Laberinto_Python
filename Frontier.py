@@ -1,4 +1,5 @@
 class Frontier:
+
     def __init__(self):
         self.listFrontier = []
 

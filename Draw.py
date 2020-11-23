@@ -38,7 +38,7 @@ class Draw:
         self.WW = self.CW * self.nColumns + self.XMARGIN
         self.WH = self.CH * self.nRows + self.YMARGIN
 
-    def draw(self):
+    def draw(self, fromjson):
         pygame.init()
         BIT_COLOR_32 = 32
         background = pygame.display.set_mode((self.WW, self.WH), pygame.RESIZABLE, BIT_COLOR_32)
@@ -82,6 +82,10 @@ class Draw:
                         pygame.draw.rect(background, GREEN_2, [x_axis, y_axis, self.CW, self.CH], 0)
                     elif cell.getValue() == 3:
                         pygame.draw.rect(background, CYAN, [x_axis, y_axis, self.CW, self.CH], 0)
+
+                    if cell.solution:
+                        pygame.draw.rect(background, RED, [x_axis + 5, y_axis + 5, self.CW-10, self.CH-10], 0)
+
                 x_axis = x_axis + self.CW
             y_axis = y_axis + self.CH
 
@@ -90,9 +94,11 @@ class Draw:
                 if event.type == pygame.MOUSEBUTTONDOWN:  # If we click on the save image we save the json and png
                     x, y = event.pos
                     if save_img.get_rect().collidepoint(x, y):
-                        pygame.image.save(background,
-                                          'Maze ' + str(self.grid.rows) + 'x' + str(self.grid.columns) + '.png')
-                        JsonFile.export(self.grid)
+                        pygame.image.save(background, 'Maze ' + str(self.grid.rows) + 'x' + str(self.grid.columns) + '.png')
+                        if not fromjson:
+                            JsonFile.export(self.grid)
+
+
                 if event.type == QUIT:  # If we close the window, the program ends.
                     pygame.quit()
                     sys.exit()

@@ -7,7 +7,7 @@
 
 import argparse
 
-import Busqueda_gualo
+import Search
 from Board import Board
 from Draw import Draw
 from Jsonfile import JsonFile
@@ -33,12 +33,13 @@ if __name__ == "__main__":
     json_param = json_param.add_argument_group()
     json_param.add_argument('path', type=str, help='Write the path of the Json file.')
 
-    json_param = subparser.add_parser('problem', help="Write the path of the Json file of the problem.")
+    json_param = subparser.add_parser('problem', help="Write the path of the Json file of the problem and the strategy")
     json_param = json_param.add_argument_group()
     json_param.add_argument('path', type=str, help='Write the path of the Json file of the problem.')
     json_param.add_argument('strategy', type=str, help='Write the strategy to solve the maze.')
 
     args = parser.parse_args()
+
     if args.subparser_name == "console":
         g = Board(args.r, args.c)
         Wilson.create(g)
@@ -46,33 +47,33 @@ if __name__ == "__main__":
     elif args.subparser_name == "image":
         g = Board(args.r, args.c)
         Wilson.create(g)
-        Draw(g, 'Maze ' + str(g.rows) + 'x' + str(g.columns)).draw()
+        Draw(g, 'Maze ' + str(g.rows) + 'x' + str(g.columns)).draw(fromjson=False)
     elif args.subparser_name == "json":
         g = JsonFile.create_from_json(args.path)
         if JsonFile.check_consistency(args.path):  # We check the consistency of the json file
-            Draw(g, 'Maze ' + str(g.rows) + 'x' + str(g.columns)).draw()
+            Draw(g, 'Maze ' + str(g.rows) + 'x' + str(g.columns)).draw(fromjson=True)
         else:
             print("The introduced JSON file is not consistent."
                   "---END OF THE PROGRAM---")
 
     elif args.subparser_name == "problem":
-
         strategy = args.strategy
+
         if strategy == "BREADTH" or strategy == "DEPTH" or strategy == "UNIFORM" or strategy == "GREEDY" or strategy == "A":
             prob = Problem(args.path)
             g = JsonFile.create_from_json(prob.getMazePath())
+
             if JsonFile.check_consistency(prob.getMazePath()):  # We check the consistency of the json file
-
                 prob = Problem(args.path, board=g)
-                solution = Busqueda_gualo.search(prob, 1000000, strategy)
-                if solution is not None:
-                    Busqueda_gualo.writeSolution(solution)
-                    JsonFile.create_txt_solution(solution, g, strategy)
-                    print("Algoritmo completado con éxito")
-                else:
-                    print("No se ha encontrado solucion")
+                solution = Search.search(prob, 1000000, strategy)
 
-                Draw(g, 'Maze ' + str(g.rows) + 'x' + str(g.columns)).draw()
+                if solution is not None:
+                    Search.Search.writeSolution(solution, g, prob)
+                    JsonFile.create_txt_solution(solution, g, strategy)
+                else:
+                    print("NO SOLUTION WAS FOUND")
+
+                Draw(g, 'Maze ' + str(g.rows) + 'x' + str(g.columns)).draw(fromjson=True)
             else:
                 print("The introduced JSON file is not consistent."
                       "---END OF THE PROGRAM---")

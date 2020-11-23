@@ -9,19 +9,20 @@ from random import choice
 
 
 class Wilson:
-
     """Constructor"""
+
     def __init__(self):
         pass
 
     """ 
-        Wilson's algorithm for generating mazes
+        Wilson's algorithm for generating mazes.
 
         The algorithm performs a random walk on the grid to create passages.
         Since every iteration we are performing a random
         walk from a random starting cell, and also erasing any loops in the
         process.
     """
+
     @staticmethod
     def create(grid):
 
