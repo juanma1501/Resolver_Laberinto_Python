@@ -14,9 +14,6 @@ from Jsonfile import JsonFile
 from Wilson import Wilson
 from Problem import Problem
 
-
-import StatesSpace
-
 if __name__ == "__main__":
 
     parser = argparse.ArgumentParser()
@@ -60,17 +57,17 @@ if __name__ == "__main__":
 
     elif args.subparser_name == "problem":
 
-        prob = Problem(args.path)
         strategy = args.strategy
-        if args.strategy == 'BREADTH' or 'DEPTH' or 'UNIFORM' or 'GREEDY' or 'A':
+        if strategy == "BREADTH" or strategy == "DEPTH" or strategy == "UNIFORM" or strategy == "GREEDY" or strategy == "A":
             prob = Problem(args.path)
             g = JsonFile.create_from_json(prob.getMazePath())
             if JsonFile.check_consistency(prob.getMazePath()):  # We check the consistency of the json file
 
                 prob = Problem(args.path, board=g)
                 solution = Busqueda_gualo.search(prob, 1000000, strategy)
-                if (solution is not None):
-                    Busqueda_gualo.writeSolution(solution, strategy, prob)
+                if solution is not None:
+                    Busqueda_gualo.writeSolution(solution)
+                    JsonFile.create_txt_solution(solution, g, strategy)
                     print("Algoritmo completado con éxito")
                 else:
                     print("No se ha encontrado solucion")
@@ -80,10 +77,5 @@ if __name__ == "__main__":
                 print("The introduced JSON file is not consistent."
                       "---END OF THE PROGRAM---")
         else:
-            print("Introduce a valid strategy:"
-                  "BREADTH, DEPTH, UNIFORM or A")
-
-
-
-
-
+            print("Introduce a valid strategy: "
+                  "BREADTH, DEPTH, UNIFORM,  or A")

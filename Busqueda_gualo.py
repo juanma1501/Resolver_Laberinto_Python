@@ -1,5 +1,4 @@
 from Node import Node
-from State import State
 from Frontier import Frontier
 from StatesSpace import StatesSpace
 
@@ -9,7 +8,7 @@ strategys = ["BREADTH", "DEPTH", "UNIFORM", "GREEDY", "A*"]
 generatedNodes = 0
 
 
-def writeSolution(solution, strategy, problem):
+def writeSolution(solution):
     i = 0
     solution.reverse()
     print("[id][cost,state,father_id,action,depth,h,value]")
@@ -25,6 +24,7 @@ def writeSolution(solution, strategy, problem):
                 node.getParent().getId()) + "," + str(node.getAction()) + "," + str(node.getDepth()) + "," + str(
                 node.getHeuristic()) + "," + str(node.getF()) + "]")
         i += 1
+    solution.reverse()
 
 
 def expand_node(problem, node, strategy):
@@ -50,7 +50,7 @@ def search(problem, depth, strategy):
     fringe.insert(node)
     solution = False
 
-    while (fringe.isEmpty() is not True) and (solution == False):
+    while (fringe.isEmpty() is not True) and (solution is False):
         node = fringe.delete()
         if problem.getObjectiveId() == node.state.getId():
             solution = True
@@ -66,11 +66,12 @@ def search(problem, depth, strategy):
     else:
         return None
 
+
 def way(node):
-    way = []
-    while (node.getParent() != None):
-        way.append(node)
+    sol = []
+    while node.getParent() is not None:
+        sol.append(node)
         node = node.getParent()
-    way.append(node)
+    sol.append(node)
     node = node.getParent()
-    return way
+    return sol

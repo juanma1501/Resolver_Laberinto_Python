@@ -10,7 +10,7 @@
 # !/usr/bin/env python
 import json
 from Board import Board
-
+from StatesSpace import StatesSpace
 
 class JsonFile:
 
@@ -219,3 +219,25 @@ class JsonFile:
         json_path_to_maze = data.get('MAZE')
 
         return initial, objective, json_path_to_maze
+
+    @staticmethod
+    def create_txt_solution(solution, grid, strategy):
+        name = "solution_"+str(grid.rows)+"x"+str(grid.columns)+"_"+str(strategy)+".txt"
+        txt = open(name, "w")
+        i = 0
+        solution.reverse()
+        txt.write("[id][cost,state,father_id,action,depth,h,value]")
+        for node in solution:
+            if i == 0:
+                txt.write("[" + str(node.getId()) + "][" + str(node.cost) + "," + str(
+                    node.getState().getId()) + "," + str(
+                    node.getParent()) + "," + str(node.getAction()) + "," + str(
+                    node.getDepth()) + "," + str(
+                    node.getHeuristic()) + "," + str(node.getF()) + "]\n")
+            else:
+                txt.write("[" + str(node.getId()) + "][" + str(node.cost) + "," + str(node.getState().getId()) + "," + str(
+                    node.getParent().getId()) + "," + str(node.getAction()) + "," + str(node.getDepth()) + "," + str(
+                    node.getHeuristic()) + "," + str(node.getF()) + "]\n")
+            i += 1
+        solution.reverse()
+        txt.close()
