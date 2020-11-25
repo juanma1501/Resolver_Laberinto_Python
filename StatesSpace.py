@@ -30,16 +30,6 @@ class StatesSpace:
 
         return successors
 
-    def calculateHeuristic(self, neighbors, problem):
-        heuristics = []
-
-        for n in neighbors:
-            h = self.heuristic_calculation(n, int(problem.getRowO()), int(problem.getColO()))
-            heuristics.append(h)
-        if not heuristics:  # Significa que heuristic == []
-            heuristics.append(0)
-        return min(heuristics)
-
     @staticmethod
     def heuristic_calculation(idNode1, target_row, target_column):
         row1, col1 = idNode1.getRow(), idNode1.getColumn()
