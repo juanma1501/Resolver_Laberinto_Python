@@ -100,21 +100,23 @@ class Board:
     def size(self):
         return self.rows, self.columns
 
+    def contents_of(self, cell):
+        """ This routine returns the 'contents' of a cell object """
+        return " "
+
     """Overloaded function used to print the maze in the console"""
-    def __str__(self):
+    def _str_(self):
         output = '+' + "---+" * self.columns + '\n'
         for row in self.all_rows():
-            wall = '|'
-            corner = '+'
+            top = '|'
+            bottom = '+'
             for cell in row:
                 body = '{:3s}'.format(self.contents_of(cell))
-                east_boundary = ' ' \
-                    if cell.isLinked(cell.cellEast) else '|'
-                wall = wall + body + east_boundary
-                south_boundary = '   ' \
-                    if cell.isLinked(cell.cellSouth) else '---'
+                east_boundary = ' ' if cell.isLinked(cell.cellEast) else '|'
+                top = top + body + east_boundary
+                south_boundary = '   ' if cell.isLinked(cell.cellSouth) else '---'
                 corner = '+'
-                corner = corner + south_boundary + corner
-            output = output + wall + '\n'
-            output = output + corner + '\n'
+                bottom = bottom + south_boundary + corner
+            output = output + top + '\n'
+            output = output + bottom + '\n'
         return output
