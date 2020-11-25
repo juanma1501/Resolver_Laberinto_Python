@@ -22,12 +22,15 @@ class Cell:
         self.solution = None
         self.links = dict()  # Dictionary to store links, each key of the dictionary is a cell.
 
+    #Getter of variable row
     def getRow(self):
         return self.row
 
+    # Getter of variable column
     def getColumn(self):
         return self.column
 
+    # Getter of variable value
     def getValue(self):
         return self.value
 
@@ -77,6 +80,7 @@ class Cell:
             neighbors.append(self.cellWest)
         return neighbors
 
+    # Getter of variable links
     def getLinks(self):
         links = []
         if self.isLinked(self.cellNorth):

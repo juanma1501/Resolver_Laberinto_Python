@@ -6,7 +6,8 @@
 ################################################################################
 
 import argparse
-import Search
+
+from Search import Search
 from Board import Board
 from Draw import Draw
 from Jsonfile import JsonFile
@@ -67,7 +68,7 @@ if __name__ == "__main__":
                 solution = Search.search(prob, 1000000, strategy)
 
                 if solution is not None:
-                    Search.Search.writeSolution(solution, g, prob)
+                    Search.writeSolution(solution, g, prob)
                     JsonFile.create_txt_solution(solution, g, strategy)
                 else:
                     print("NO SOLUTION WAS FOUND. Please check if the objective state is in the bound of the maze size.")

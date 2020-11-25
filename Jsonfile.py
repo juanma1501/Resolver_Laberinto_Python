@@ -11,6 +11,7 @@
 import json
 from Board import Board
 
+
 class JsonFile:
 
     # Constructor
