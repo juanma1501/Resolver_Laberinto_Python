@@ -17,7 +17,7 @@ class Problem:
                 exit()
             c = board[int(self.rowI), int(self.colI)]
             try:
-                self.initialState = State((int(self.rowI), int(self.colI)), c.getLinks(), 0, value=0)
+                self.initialState = State((int(self.rowI), int(self.colI)), c.getLinks())
             except AttributeError:
                 print("ERROR. Change initial state.")
                 exit()

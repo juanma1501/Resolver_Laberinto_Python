@@ -1,4 +1,3 @@
-from State import State
 
 
 class Node:
@@ -66,11 +65,6 @@ class Node:
             f = self.heuristic + self.cost
 
         return f
-
-    def heuristic_calculation(self, origin_row, origin_column, target_row, target_column):
-        h = abs(int(origin_row) - target_row) + abs(int(origin_column) - target_column)
-        self.getState().heuristic = h
-        self.heuristic = h
 
     def __lt__(self, other):
         return (self.getF(), self.getState().getRow(), self.getState().getColumn(), self.getId()) < (
