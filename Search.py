@@ -2,12 +2,12 @@ from Node import Node
 from Frontier import Frontier
 from StatesSpace import StatesSpace
 
+
 class Search:
 
     def __init__(self):
         pass
 
-    '''Function to print in the console the solution of the maze'''
     @staticmethod
     def writeSolution(solution, board, prob):
         i = 0
@@ -32,31 +32,33 @@ class Search:
             i += 1
         solution.reverse()
 
-    '''Function to expand a new node'''
-    @staticmethod
-    def expand_node(problem, node, strategy):
+
+    def expand_node(self, problem, node, strategy):
         node_list = []
 
-        for successor in problem.statesSpaces.successors(node.state, problem):
+        for successor in problem.statesSpaces.successors(node.state):
             node_son = Node(node, successor[1], node.getCost() + successor[2], strategy, successor[0], node.depth + 1)
             node_son.heuristic = StatesSpace.heuristic_calculation(node_son.state, int(problem.getRowO()),
-                                                                   int(problem.getColO()))
+                                                               int(problem.getColO()))
             node_son.f = node_son.strategy(strategy)
             node_list.append(node_son)
         return node_list
 
-    '''Function to do the solution of the maze'''
-    @staticmethod
-    def search(problem, depth, strategy):
+    def way(self, node):
+        sol = []
+        while node.getParent() is not None:
+            sol.append(node)
+            node = node.getParent()
+        sol.append(node)
+        return sol
+
+    def search(self, problem, depth, strategy):
         visitados = []
         fringe = Frontier()
         node = Node(None, problem.getInitialState(), 0, strategy, None, 0)
-        rowI = problem.getRowI()
-        colI = problem.getColI()
         rowO = problem.getRowO()
         colO = problem.getColO()
-        node.heuristic_calculation(int(rowI), int(colI),
-                                   int(rowO), int(colO))
+        node.heuristic = StatesSpace.heuristic_calculation(node.getState(), int(rowO), int(colO))
         node.f = node.strategy(strategy)
 
         fringe.insert(node)
@@ -69,21 +71,11 @@ class Search:
             else:
                 if not (node.getState().getId() in visitados) and (node.depth < depth):
                     visitados.append(node.getState().getId())
-                    son_node_list = Search.expand_node(problem, node, strategy)
+                    son_node_list = self.expand_node(problem, node, strategy)
                     for son_node in son_node_list:
                         fringe.insert(son_node)
 
         if solution:
-            return Search.way(node)
+            return self.way(node)
         else:
             return None
-
-    '''Function to get the way that a node has gone through'''
-    @staticmethod
-    def way(node):
-        sol = []
-        while node.getParent() is not None:
-            sol.append(node)
-            node = node.getParent()
-        sol.append(node)
-        return sol

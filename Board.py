@@ -105,7 +105,7 @@ class Board:
         return " "
 
     """Overloaded function used to print the maze in the console"""
-    def _str_(self):
+    def __str__(self):
         output = '+' + "---+" * self.columns + '\n'
         for row in self.all_rows():
             top = '|'

@@ -1,3 +1,4 @@
+
 ###############################################################################
 #   Name of the class: maze
 #   Date of creation: 19/10/2020
@@ -6,7 +7,6 @@
 ################################################################################
 
 import argparse
-
 from Search import Search
 from Board import Board
 from Draw import Draw
@@ -62,13 +62,14 @@ if __name__ == "__main__":
         if strategy == "BREADTH" or strategy == "DEPTH" or strategy == "UNIFORM" or strategy == "GREEDY" or strategy == "A":
             prob = Problem(args.path)
             g = JsonFile.create_from_json(prob.getMazePath())
+            search = Search()
 
             if JsonFile.check_consistency(prob.getMazePath()):  # We check the consistency of the json file
                 prob = Problem(args.path, board=g)
-                solution = Search.search(prob, 1000000, strategy)
+                solution = search.search(prob, 1000000, strategy)
 
                 if solution is not None:
-                    Search.writeSolution(solution, g, prob)
+                    search.writeSolution(solution, g, prob)
                     JsonFile.create_txt_solution(solution, g, strategy)
                 else:
                     print("NO SOLUTION WAS FOUND. Please check if the objective state is in the bound of the maze size.")

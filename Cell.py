@@ -37,7 +37,7 @@ class Cell:
     """Print a cell (r, c)"""
 
     def __str__(self):
-        return "(" + str(self.row) + ", " + str(self.column) + ")" + "valor" + str(self.value)
+        return "(" + str(self.row) + ", " + str(self.column) + ")" + "value: " + str(self.value)
 
     ###############################################################################################
     #     Name of the method: link
