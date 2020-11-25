@@ -35,3 +35,8 @@ class StatesSpace:
         row1, col1 = idNode1.getRow(), idNode1.getColumn()
         h = abs(int(row1) - target_row) + abs(int(col1) - target_column)
         return h
+
+    @staticmethod
+    def first_node_heuristic(node, origin_row, origin_column, target_row, target_column):
+        h = abs(int(origin_row) - target_row) + abs(int(origin_column) - target_column)
+        node.heuristic = h

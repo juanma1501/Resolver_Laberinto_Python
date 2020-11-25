@@ -48,6 +48,11 @@ def search(problem, depth, strategy):
     visitados = []
     fringe = Frontier()
     node = Node(None, problem.getInitialState(), 0, strategy, None, 0)
+    rowI = problem.getRowI()
+    colI = problem.getColI()
+    rowO = problem.getRowO()
+    colO = problem.getColO()
+    StatesSpace.first_node_heuristic(node, int(rowI), int(colI), int(rowO), int(colO))
     node.f = node.strategy(strategy)
 
     fringe.insert(node)
