@@ -35,7 +35,7 @@ class Search:
 def expand_node(problem, node, strategy):
     node_list = []
 
-    for successor in problem.statesSpaces.successors(node.state, problem):
+    for successor in problem.statesSpaces.successors(node.state):
         node_son = Node(node, successor[1], node.getCost() + successor[2], strategy, successor[0], node.depth + 1)
         node_son.heuristic = StatesSpace.heuristic_calculation(node_son.state, int(problem.getRowO()),
                                                                int(problem.getColO()))

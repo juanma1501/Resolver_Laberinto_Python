@@ -6,7 +6,6 @@
 ################################################################################
 
 import argparse
-
 import Search
 from Board import Board
 from Draw import Draw

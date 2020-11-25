@@ -9,7 +9,7 @@ class StatesSpace:
     def getBoard(self):
         return self.board
 
-    def successors(self, state, problem):
+    def successors(self, state):
         mov = None
         successors = []
         neighbors = state.getLinks()

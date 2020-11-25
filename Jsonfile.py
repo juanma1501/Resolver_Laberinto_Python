@@ -10,7 +10,6 @@
 # !/usr/bin/env python
 import json
 from Board import Board
-from StatesSpace import StatesSpace
 
 class JsonFile:
 
