@@ -10,7 +10,7 @@ os.environ['PYGAME_HIDE_SUPPORT_PROMPT'] = "hide"
 import pygame
 import sys
 from pygame.locals import *
-from Jsonfile import JsonFile
+from fileHandler import fileHandler
 
 GREEN = (0, 143, 57)
 GREY = (230, 230, 230)
@@ -96,7 +96,7 @@ class Draw:
                     if save_img.get_rect().collidepoint(x, y):
                         pygame.image.save(background, 'Maze ' + str(self.grid.rows) + 'x' + str(self.grid.columns) + '.png')
                         if not fromjson:
-                            JsonFile.export(self.grid)
+                            fileHandler.export_json(self.grid)
 
 
                 if event.type == QUIT:  # If we close the window, the program ends.

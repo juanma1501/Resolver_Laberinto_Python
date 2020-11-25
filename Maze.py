@@ -10,7 +10,7 @@ import argparse
 from Search import Search
 from Board import Board
 from Draw import Draw
-from Jsonfile import JsonFile
+from fileHandler import fileHandler
 from Wilson import Wilson
 from Problem import Problem
 
@@ -50,11 +50,11 @@ if __name__ == "__main__":
         Draw(g, 'Maze ' + str(g.rows) + 'x' + str(g.columns)).draw(fromjson=False)
     elif args.subparser_name == "json":
         try:
-            g = JsonFile.create_from_json(args.path)
+            g = fileHandler.create_from_json(args.path)
         except TypeError:
             print("ERROR. Please, insert a correct JSON file.")
             exit()
-        if JsonFile.check_consistency(args.path):  # We check the consistency of the json file
+        if fileHandler.check_consistency(args.path):  # We check the consistency of the json file
             Draw(g, 'Maze ' + str(g.rows) + 'x' + str(g.columns)).draw(fromjson=True)
         else:
             print("The introduced JSON file is not consistent."
@@ -65,16 +65,16 @@ if __name__ == "__main__":
 
         if strategy == "BREADTH" or strategy == "DEPTH" or strategy == "UNIFORM" or strategy == "GREEDY" or strategy == "A":
             prob = Problem(args.path)
-            g = JsonFile.create_from_json(prob.getMazePath())
+            g = fileHandler.create_from_json(prob.getMazePath())
             search = Search()
 
-            if JsonFile.check_consistency(prob.getMazePath()):  # We check the consistency of the json file
+            if fileHandler.check_consistency(prob.getMazePath()):  # We check the consistency of the json file
                 prob = Problem(args.path, board=g)
                 solution = search.search(prob, 1000000, strategy)
 
                 if solution is not None:
                     search.writeSolution(solution, g, prob)
-                    JsonFile.create_txt_solution(solution, g, strategy)
+                    fileHandler.create_txt_solution(solution, g, strategy)
                 else:
                     print("NO SOLUTION WAS FOUND. Please check if the objective state is in the bound of the maze size.")
 

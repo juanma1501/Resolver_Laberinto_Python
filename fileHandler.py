@@ -12,7 +12,7 @@ import json
 from Board import Board
 
 
-class JsonFile:
+class fileHandler:
 
     # Constructor
     def __init__(self):
@@ -36,7 +36,7 @@ class JsonFile:
     #     UnicodeDecodeError -> if the file is not .json
     ###################################################################################
     @staticmethod
-    def read(jsonFile):
+    def read_json(jsonFile):
         try:
             jsondata = open(jsonFile).read()
             data = json.loads(jsondata)
@@ -67,7 +67,7 @@ class JsonFile:
     ################################################################################################
     @staticmethod
     def create_from_json(jsonFile):
-        data = JsonFile.read(jsonFile)
+        data = fileHandler.read_json(jsonFile)
 
         # We collect information from the Json File
         rows = data.get('rows')
@@ -116,7 +116,7 @@ class JsonFile:
     #              grid -> the grid(maze) that we want to export
     ################################################################################################
     @staticmethod
-    def export(grid):
+    def export_json(grid):
         data = {
             'rows': grid.rows,
             'cols': grid.columns,
@@ -171,7 +171,7 @@ class JsonFile:
     ################################################################################################
     @staticmethod
     def check_consistency(jsonFile):
-        data = JsonFile.read(jsonFile)
+        data = fileHandler.read_json(jsonFile)
         consistent = True
 
         # We collect information from the Json File
@@ -214,7 +214,7 @@ class JsonFile:
 
     @staticmethod
     def read_problem(jsonfile):
-        data = JsonFile.read(jsonfile)
+        data = fileHandler.read_json(jsonfile)
 
         # We collect information from the Json File
         initial = data.get('INITIAL')

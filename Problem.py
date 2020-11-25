@@ -1,4 +1,4 @@
-from Jsonfile import JsonFile
+from fileHandler import fileHandler
 from State import State
 import StatesSpace
 
@@ -7,7 +7,7 @@ class Problem:
 
     # Constructor
     def __init__(self, jsonfile, board=None):
-        self.idInitial, self.IdObjective, self.json_path_to_maze = JsonFile.read_problem(jsonfile)
+        self.idInitial, self.IdObjective, self.json_path_to_maze = fileHandler.read_problem(jsonfile)
         if board is not None:
             try:
                 self.rowI, self.colI = self.convert(self.idInitial)
