@@ -49,7 +49,11 @@ if __name__ == "__main__":
         Wilson.create(g)
         Draw(g, 'Maze ' + str(g.rows) + 'x' + str(g.columns)).draw(fromjson=False)
     elif args.subparser_name == "json":
-        g = JsonFile.create_from_json(args.path)
+        try:
+            g = JsonFile.create_from_json(args.path)
+        except TypeError:
+            print("ERROR. Please, insert a correct JSON file.")
+            exit()
         if JsonFile.check_consistency(args.path):  # We check the consistency of the json file
             Draw(g, 'Maze ' + str(g.rows) + 'x' + str(g.columns)).draw(fromjson=True)
         else:
