@@ -71,7 +71,7 @@ if __name__ == "__main__":
                     Search.Search.writeSolution(solution, g, prob)
                     JsonFile.create_txt_solution(solution, g, strategy)
                 else:
-                    print("NO SOLUTION WAS FOUND")
+                    print("NO SOLUTION WAS FOUND. Please check if the objective state is in the bound of the maze size.")
 
                 Draw(g, 'Maze ' + str(g.rows) + 'x' + str(g.columns)).draw(fromjson=True)
             else:

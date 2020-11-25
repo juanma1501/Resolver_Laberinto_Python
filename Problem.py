@@ -9,10 +9,18 @@ class Problem:
     def __init__(self, jsonfile, board=None):
         self.idInitial, self.IdObjective, self.json_path_to_maze = JsonFile.read_problem(jsonfile)
         if board is not None:
-            self.rowI, self.colI = self.convert(self.idInitial)
-            self.rowO, self.colO = self.convert(self.IdObjective)
+            try:
+                self.rowI, self.colI = self.convert(self.idInitial)
+                self.rowO, self.colO = self.convert(self.IdObjective)
+            except AttributeError:
+                print("ERROR. Tags of the json file must be INITIAL and OBJECTIVE.")
+                exit()
             c = board[int(self.rowI), int(self.colI)]
-            self.initialState = State((int(self.rowI), int(self.colI)), c.getLinks(), 0, value=0)
+            try:
+                self.initialState = State((int(self.rowI), int(self.colI)), c.getLinks(), 0, value=0)
+            except AttributeError:
+                print("ERROR. Change initial state.")
+                exit()
         self.statesSpaces = StatesSpace.StatesSpace(board)
 
     def getRowI(self):

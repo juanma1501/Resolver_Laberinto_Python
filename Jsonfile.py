@@ -47,6 +47,9 @@ class JsonFile:
         except UnicodeDecodeError:
             print("ERROR. Please, insert a .json file.")
             exit()
+        except TypeError:
+            print("ERROR. Please, the tag of the json file must be MAZE.")
+            exit()
 
     ###############################################################################################
     #     Name of the method: create_from_json
@@ -148,7 +151,7 @@ class JsonFile:
         for cell in grid.all_cells():
             links = [cell.isLinked(cell.cellNorth), cell.isLinked(cell.cellEast), cell.isLinked(cell.cellSouth),
                      cell.isLinked(cell.cellWest)]
-            data['cells']['({}, {})'.format(cell.row, cell.column)] = {'value': 0, 'neighbors': links}
+            data['cells']['({}, {})'.format(cell.row, cell.column)] = {'value': cell.getValue(), 'neighbors': links}
 
         with open('Maze ' + str(grid.rows) + 'x' + str(grid.columns) + '.json', 'w') as file:
             json.dump(data, file, indent=4)
