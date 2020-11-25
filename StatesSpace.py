@@ -31,12 +31,7 @@ class StatesSpace:
         return successors
 
     @staticmethod
-    def heuristic_calculation(idNode1, target_row, target_column):
-        row1, col1 = idNode1.getRow(), idNode1.getColumn()
+    def heuristic_calculation(state_of_node, target_row, target_column):
+        row1, col1 = state_of_node.getRow(), state_of_node.getColumn()
         h = abs(int(row1) - target_row) + abs(int(col1) - target_column)
         return h
-
-    @staticmethod
-    def first_node_heuristic(node, origin_row, origin_column, target_row, target_column):
-        h = abs(int(origin_row) - target_row) + abs(int(origin_column) - target_column)
-        node.heuristic = h
