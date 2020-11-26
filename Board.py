@@ -30,7 +30,7 @@ class Board:
        Returns: grid
     """
     def make_board(self):
-        board = [[Cell(row, col, value=0)
+        board = [[Cell(row, col)
                  for col in range(self.columns)]
                 for row in range(self.rows)]
         return board

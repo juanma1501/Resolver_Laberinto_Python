@@ -6,6 +6,7 @@
 ################################################################################
 
 import os
+
 os.environ['PYGAME_HIDE_SUPPORT_PROMPT'] = "hide"
 import pygame
 import sys
@@ -23,6 +24,7 @@ CYAN = (0, 132, 255)
 BG_BLUE = (224, 255, 255)
 BROWN = (194, 155, 97)
 WHITE = (0, 0, 0)
+
 
 class Draw:
     """Constructor"""
@@ -84,7 +86,7 @@ class Draw:
                         pygame.draw.rect(background, CYAN, [x_axis, y_axis, self.CW, self.CH], 0)
 
                     if cell.solution:
-                        pygame.draw.rect(background, RED, [x_axis + 5, y_axis + 5, self.CW-10, self.CH-10], 0)
+                        pygame.draw.rect(background, RED, [x_axis + 5, y_axis + 5, self.CW - 10, self.CH - 10], 0)
 
                 x_axis = x_axis + self.CW
             y_axis = y_axis + self.CH
@@ -94,10 +96,10 @@ class Draw:
                 if event.type == pygame.MOUSEBUTTONDOWN:  # If we click on the save image we save the json and png
                     x, y = event.pos
                     if save_img.get_rect().collidepoint(x, y):
-                        pygame.image.save(background, 'Maze ' + str(self.grid.rows) + 'x' + str(self.grid.columns) + '.png')
+                        pygame.image.save(background,
+                                          'Maze ' + str(self.grid.rows) + 'x' + str(self.grid.columns) + '.png')
                         if not fromjson:
                             fileHandler.export_json(self.grid)
-
 
                 if event.type == QUIT:  # If we close the window, the program ends.
                     pygame.quit()
