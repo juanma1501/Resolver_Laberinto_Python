@@ -58,7 +58,7 @@ class Wilson:
 
             # Keep finding random neighbors till we find a visited cell
             while cell in unvisited_cells:
-                neighbor = choose_random_element(cell.neighbors())
+                neighbor = choose_random_element(cell.getNeighbours())
                 if neighbor in path:
                     path = path[0:path.index(neighbor) + 1]
                 else:
