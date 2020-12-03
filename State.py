@@ -3,9 +3,10 @@
 # The unique identifier for a state is the cell position (row, col).
 class State:
 
-    def __init__(self, id, links):
+    def __init__(self, id, links, value):
         self.row, self.column = id
         self.id = id
+        self.value = value
         self.links = links
 
     # Function to get the identifier
@@ -15,6 +16,10 @@ class State:
     # Function to get the list of neighbours
     def getLinks(self):
         return self.links
+
+    # Function to get the value of the state
+    def getValue(self):
+        return self.value
 
     # Function to get the row of the cell
     def getRow(self):

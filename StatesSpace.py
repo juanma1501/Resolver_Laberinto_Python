@@ -20,7 +20,7 @@ class StatesSpace:
             if state.getColumn() + 1 == cell.getColumn():
                 mov = "E"
 
-            new_state = State((cell.getRow(), cell.getColumn()), cell.getLinks())
+            new_state = State((cell.getRow(), cell.getColumn()), cell.getLinks(), cell.getValue())
             cost = int(cell.getValue()) + 1
             successors.append([mov, new_state, cost])
 
