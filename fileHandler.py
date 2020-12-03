@@ -120,7 +120,7 @@ class fileHandler:
         data = {
             'rows': grid.rows,
             'cols': grid.columns,
-            'max_n': grid.get_max_neighbors(),
+            'max_n': grid.get_max_neighbours(),
             'mov': [
                 [
                     -1,

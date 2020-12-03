@@ -16,7 +16,7 @@ class Board:
         self.rows = rows
         self.columns = columns
         self.board = self.make_board()
-        self.set_neighbors()
+        self.set_neighbours()
 
     """Returns a cell of the board"""
     def __getitem__(self, pos):
@@ -66,7 +66,7 @@ class Board:
     #     Return
     #          max -> integer number, the max number of neighbors
     ################################################################################################
-    def get_max_neighbors(self):
+    def get_max_neighbours(self):
         aux = 0
         max = 0
         for cell in self.all_cells():
@@ -88,7 +88,7 @@ class Board:
     #     Parameters
     #          self
     ################################################################################################
-    def set_neighbors(self):
+    def set_neighbours(self):
         for cell in self.all_cells():
             row, col = cell.row, cell.column
             cell.cellNorth = self[row - 1, col]
@@ -101,7 +101,6 @@ class Board:
         return self.rows, self.columns
 
     def contents_of(self, cell):
-        """ This routine returns the 'contents' of a cell object """
         return " "
 
     """Overloaded function used to print the maze in the console"""
