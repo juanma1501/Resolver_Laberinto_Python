@@ -29,13 +29,13 @@ WHITE = (0, 0, 0)
 class Draw:
     """Constructor"""
 
-    def __init__(self, grid, title):
-        self.nRows, self.nColumns = grid.size()
+    def __init__(self, board, title):
+        self.nRows, self.nColumns = board.size()
         self.CW = 20
         self.CH = 20
         self.XMARGIN = 20
         self.YMARGIN = 120
-        self.grid = grid
+        self.grid = board
         self.title = title
         self.WW = self.CW * self.nColumns + self.XMARGIN
         self.WH = self.CH * self.nRows + self.YMARGIN

@@ -28,8 +28,3 @@ class State:
     # Function to get the column of the cell
     def getColumn(self):
         return self.column
-
-    # Function to calculate the heuristic according to the manhattan distance
-    def heuristic_calculation(self, origin_row, origin_column, target_row, target_column):
-        h = abs(int(origin_row) - target_row) + abs(int(origin_column) - target_column)
-        self.heuristic = h

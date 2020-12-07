@@ -78,12 +78,6 @@ class Node:
 
         return f
 
-    #Function to calculate the heuristic according to manhattan distance
-    def heuristic_calculation(self, origin_row, origin_column, target_row, target_column):
-        h = abs(int(origin_row) - target_row) + abs(int(origin_column) - target_column)
-        self.getState().heuristic = h
-        self.heuristic = h
-
     #Function used to sort the frontier according to the criterion said by the teacher
     def __lt__(self, other):
         return (self.getF(), self.getState().getRow(), self.getState().getColumn(), self.getId()) < (

@@ -169,8 +169,10 @@ class fileHandler:
     #     Return
     #          consistent -> boolean, True if the file is consistent and False if the file is not consistent
     ################################################################################################
+
     @staticmethod
     def check_consistency(jsonFile):
+
         data = fileHandler.read_json(jsonFile)
         consistent = True
 
