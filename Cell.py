@@ -11,7 +11,7 @@ import random
 class Cell:
     """Constructor"""
 
-    def __init__(self, row, column, value):
+    def __init__(self, row, column):
         self.column = column
         self.row = row
         self.cellNorth = None
@@ -22,19 +22,22 @@ class Cell:
         self.solution = None
         self.links = dict()  # Dictionary to store links, each key of the dictionary is a cell.
 
+    #Getter of variable row
     def getRow(self):
         return self.row
 
+    # Getter of variable column
     def getColumn(self):
         return self.column
 
+    # Getter of variable value
     def getValue(self):
         return self.value
 
     """Print a cell (r, c)"""
 
     def __str__(self):
-        return "(" + str(self.row) + ", " + str(self.column) + ")" + "valor" + str(self.value)
+        return "(" + str(self.row) + ", " + str(self.column) + ")" + "value: " + str(self.value)
 
     ###############################################################################################
     #     Name of the method: link
@@ -65,18 +68,19 @@ class Cell:
 
     """Method to store in a list all the neighbors of a cell"""
 
-    def neighbors(self):
-        neighbors = []
+    def getNeighbours(self):
+        neighbours = []
         if self.cellNorth:
-            neighbors.append(self.cellNorth)
+            neighbours.append(self.cellNorth)
         if self.cellEast:
-            neighbors.append(self.cellEast)
+            neighbours.append(self.cellEast)
         if self.cellSouth:
-            neighbors.append(self.cellSouth)
+            neighbours.append(self.cellSouth)
         if self.cellWest:
-            neighbors.append(self.cellWest)
-        return neighbors
+            neighbours.append(self.cellWest)
+        return neighbours
 
+    # Getter of variable links
     def getLinks(self):
         links = []
         if self.isLinked(self.cellNorth):

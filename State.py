@@ -3,26 +3,23 @@
 # The unique identifier for a state is the cell position (row, col).
 class State:
 
-    def __init__(self, id, neighbors, heuristic, value):
+    def __init__(self, id, links, value):
         self.row, self.column = id
         self.id = id
-        self.neighbors = neighbors
-        self.heuristic = heuristic
         self.value = value
-
-    def getHeuristic(self):
-        return self.heuristic
-
-    def getValue(self):
-        return self.value
+        self.links = links
 
     # Function to get the identifier
     def getId(self):
         return "(" + str(self.row) + ", " + str(self.column) + ")"
 
     # Function to get the list of neighbours
-    def getNeighbors(self):
-        return self.neighbors
+    def getLinks(self):
+        return self.links
+
+    # Function to get the value of the state
+    def getValue(self):
+        return self.value
 
     # Function to get the row of the cell
     def getRow(self):
@@ -31,7 +28,3 @@ class State:
     # Function to get the column of the cell
     def getColumn(self):
         return self.column
-
-    def heuristic_calculation(self, origin_row, origin_column, target_row, target_column):
-        h = abs(int(origin_row) - target_row) + abs(int(origin_column) - target_column)
-        self.heuristic = h

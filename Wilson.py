@@ -24,7 +24,7 @@ class Wilson:
     """
 
     @staticmethod
-    def create(grid):
+    def create(board):
 
         # This method is to choose a random element from a list, it easier to create this method inside another method
         # instead of doing it outside this one, because we don't have to create an instance to use it. In grid we have a
@@ -36,7 +36,7 @@ class Wilson:
 
         # Create a database of unvisited cells. At this point this is all the cells in the grid
         unvisited_cells = []
-        for cell in grid.all_cells():
+        for cell in board.all_cells():
             unvisited_cells.append(cell)
 
         # Choose a starting cell at random and mark it as visited
@@ -58,7 +58,7 @@ class Wilson:
 
             # Keep finding random neighbors till we find a visited cell
             while cell in unvisited_cells:
-                neighbor = choose_random_element(cell.neighbors())
+                neighbor = choose_random_element(cell.getNeighbours())
                 if neighbor in path:
                     path = path[0:path.index(neighbor) + 1]
                 else:

@@ -8,6 +8,7 @@ class Search:
     def __init__(self):
         pass
 
+    @staticmethod
     def writeSolution(solution, board, prob):
         i = 0
         solution.reverse()
@@ -32,54 +33,49 @@ class Search:
         solution.reverse()
 
 
-def expand_node(problem, node, strategy):
-    node_list = []
+    def expand_node(self, problem, node, strategy):
+        node_list = []
 
-    for successor in problem.statesSpaces.successors(node.state, problem):
-        node_son = Node(node, successor[1], node.getCost() + successor[2], strategy, successor[0], node.depth + 1)
-        node_son.heuristic = StatesSpace.heuristic_calculation(node_son.state, int(problem.getRowO()),
+        for successor in problem.statesSpaces.successors(node.state):
+            node_son = Node(node, successor[1], node.getCost() + successor[2], strategy, successor[0], node.depth + 1)
+            node_son.heuristic = StatesSpace.heuristic_calculation(node_son.state, int(problem.getRowO()),
                                                                int(problem.getColO()))
-        node_son.f = node_son.strategy(strategy)
-        node_list.append(node_son)
-    return node_list
+            node_son.f = node_son.strategy(strategy)
+            node_list.append(node_son)
+        return node_list
 
-
-def search(problem, depth, strategy):
-    visitados = []
-    fringe = Frontier()
-    node = Node(None, problem.getInitialState(), 0, strategy, None, 0)
-    rowI = problem.getRowI()
-    colI = problem.getColI()
-    rowO = problem.getRowO()
-    colO = problem.getColO()
-    node.heuristic_calculation(int(rowI), int(colI),
-                               int(rowO), int(colO))
-    node.f = node.strategy(strategy)
-
-    fringe.insert(node)
-    solution = False
-
-    while (fringe.isEmpty() is not True) and (solution is False):
-        node = fringe.delete()
-        if problem.getObjectiveId() == node.state.getId():
-            solution = True
-        else:
-            if not (node.getState().getId() in visitados) and (node.depth < depth):
-                visitados.append(node.getState().getId())
-                son_node_list = expand_node(problem, node, strategy)
-                for son_node in son_node_list:
-                    fringe.insert(son_node)
-
-    if solution:
-        return way(node)
-    else:
-        return None
-
-
-def way(node):
-    sol = []
-    while node.getParent() is not None:
+    def way(self, node):
+        sol = []
+        while node.getParent() is not None:
+            sol.append(node)
+            node = node.getParent()
         sol.append(node)
-        node = node.getParent()
-    sol.append(node)
-    return sol
+        return sol
+
+    def search(self, problem, depth, strategy):
+        visitados = []
+        fringe = Frontier()
+        node = Node(None, problem.getInitialState(), 0, strategy, None, 0)
+        rowO = problem.getRowO()
+        colO = problem.getColO()
+        node.heuristic = StatesSpace.heuristic_calculation(node.getState(), int(rowO), int(colO))
+        node.f = node.strategy(strategy)
+
+        fringe.insert(node)
+        solution = False
+
+        while (fringe.isEmpty() is not True) and (solution is False):
+            node = fringe.delete()
+            if problem.getObjectiveId() == node.state.getId():
+                solution = True
+            else:
+                if not (node.getState().getId() in visitados) and (node.depth < depth):
+                    visitados.append(node.getState().getId())
+                    son_node_list = self.expand_node(problem, node, strategy)
+                    for son_node in son_node_list:
+                        fringe.insert(son_node)
+
+        if solution:
+            return self.way(node)
+        else:
+            return None

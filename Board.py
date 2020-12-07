@@ -16,7 +16,7 @@ class Board:
         self.rows = rows
         self.columns = columns
         self.board = self.make_board()
-        self.set_neighbors()
+        self.set_neighbours()
 
     """Returns a cell of the board"""
     def __getitem__(self, pos):
@@ -30,7 +30,7 @@ class Board:
        Returns: grid
     """
     def make_board(self):
-        board = [[Cell(row, col, value=0)
+        board = [[Cell(row, col)
                  for col in range(self.columns)]
                 for row in range(self.rows)]
         return board
@@ -66,7 +66,7 @@ class Board:
     #     Return
     #          max -> integer number, the max number of neighbors
     ################################################################################################
-    def get_max_neighbors(self):
+    def get_max_neighbours(self):
         aux = 0
         max = 0
         for cell in self.all_cells():
@@ -88,7 +88,7 @@ class Board:
     #     Parameters
     #          self
     ################################################################################################
-    def set_neighbors(self):
+    def set_neighbours(self):
         for cell in self.all_cells():
             row, col = cell.row, cell.column
             cell.cellNorth = self[row - 1, col]
@@ -100,21 +100,22 @@ class Board:
     def size(self):
         return self.rows, self.columns
 
+    def contents_of(self, cell):
+        return " "
+
     """Overloaded function used to print the maze in the console"""
     def __str__(self):
         output = '+' + "---+" * self.columns + '\n'
         for row in self.all_rows():
-            wall = '|'
-            corner = '+'
+            top = '|'
+            bottom = '+'
             for cell in row:
                 body = '{:3s}'.format(self.contents_of(cell))
-                east_boundary = ' ' \
-                    if cell.isLinked(cell.cellEast) else '|'
-                wall = wall + body + east_boundary
-                south_boundary = '   ' \
-                    if cell.isLinked(cell.cellSouth) else '---'
+                east_boundary = ' ' if cell.isLinked(cell.cellEast) else '|'
+                top = top + body + east_boundary
+                south_boundary = '   ' if cell.isLinked(cell.cellSouth) else '---'
                 corner = '+'
-                corner = corner + south_boundary + corner
-            output = output + wall + '\n'
-            output = output + corner + '\n'
+                bottom = bottom + south_boundary + corner
+            output = output + top + '\n'
+            output = output + bottom + '\n'
         return output
